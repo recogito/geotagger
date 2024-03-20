@@ -1,0 +1,40 @@
+.ou-gtp-quicksearch {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.25em;
+  justify-content: space-between;
+  padding: 6px;
+}
+
+.ou-gtp-quicksearch .searchbox {
+  flex-grow: 1;
+  position: relative;
+}
+
+.ou-gtp-quicksearch .searchbox input {
+  background-color: var(--gray-100);
+  border: none;
+  font-size: var(--font-tiny);
+  outline: none;
+  padding-left: 34px;
+  width: 100%;
+}
+
+.ou-gtp-quicksearch .searchbox .search-icon {
+  color: var(--font-light);
+  left: 7px;
+  position: absolute;
+  top: 7px;
+}
+
+.ou-gtp-quicksearch .searchbox .search-icon.spinner {
+  left: 10px;
+  top: 10px;
+}
+
+.ou-gtp-quicksearch .delete:hover svg {
+  color: var(--red-500);
+}
+
+

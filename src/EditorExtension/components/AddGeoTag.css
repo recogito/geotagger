@@ -1,0 +1,29 @@
+.ou-gtp-add {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  display: flex;
+  padding: 5px;
+  width: 100%;
+}
+
+.ou-gtp-add button {
+  border-radius: var(--border-radius);
+  color: var(--font-dark);
+  font-size: var(--font-tiny);
+  gap: 0.2em;
+  padding: 3px 8px 3px 5px;
+}
+
+.ou-gtp-add button:disabled,
+.ou-gtp-add button:disabled svg {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.ou-gtp-add button:hover {
+  background-color: transparent;
+}
+
+.ou-gtp-add button svg {
+  color: var(--font-dark);
+  margin: 1px 0 0 0;
+}

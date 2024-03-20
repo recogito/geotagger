@@ -1,0 +1,9 @@
+.ou-gtp-minimap {
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}

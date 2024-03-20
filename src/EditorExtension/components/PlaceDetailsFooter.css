@@ -1,0 +1,70 @@
+.ou-gtp-placedetails-footer {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  font-size: var(--font-tiny);
+  line-height: 190%;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.ou-gtp-placedetails-footer.confirmed {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  font-size: 11px;
+  padding: 4px 7px 3px 7px;
+}
+
+.ou-gtp-placedetails-footer.confirmed .created-by {
+  align-items: center;
+  display: flex;
+  gap: 0.5em; 
+}
+
+.ou-gtp-placedetails-footer.confirmed .created-at {
+  color: var(--font-light);
+}
+
+.ou-gtp-placedetails-footer.confirmed .created-by .avatar {
+  height: 17px;
+  width: 17px;
+}
+
+.ou-gtp-placedetails-footer.unconfirmed {
+  background-color: #07529a30;
+  border-radius: 0 0 0 var(--border-radius);
+  border-top: 1px solid #07529a45;
+  padding: 3px 4px;
+}
+
+.ou-gtp-placedetails-footer .warning {
+  white-space: nowrap;
+}
+
+.ou-gtp-placedetails-footer.unconfirmed > div {
+  align-items: center;
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.ou-gtp-placedetails-footer button {
+  all: unset;
+  background-color: var(--bright-blue);
+  border-radius: var(--border-radius);
+  color: #fff;
+  cursor: pointer;
+  display: inline;
+  height: 1.8em;
+  line-height: 100%;
+  margin: 0;
+  padding: 1px 6px;
+}
+
+.ou-gtp-placedetails-footer button svg {
+  color: #fff;
+  display: block;
+}
+
+.ou-gtp-placedetails-footer :is(button, a.button) + :is(button, a.button) {
+  margin-left: 3px;
+}

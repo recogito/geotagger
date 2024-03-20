@@ -1,3 +1,3 @@
-# Recogito Geotagging Plugin
+# Recogito Geotagger Plugin
 
-A Geo-Tagging plugin for RecogitoPlus. Work in progress.
+A geo-tagging plugin for Recogito. Work in progress.

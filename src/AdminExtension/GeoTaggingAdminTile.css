@@ -1,0 +1,19 @@
+.ou-gtp-admin label {
+  display: inline-block;
+  padding: 0.4em 2px;
+}
+
+.ou-gtp-admin .out-gtp-setting {
+  margin-bottom: 2em;
+}
+
+.ou-gtp-admin .out-gtp-setting input {
+  width: 290px;
+}
+
+.ou-gtp-admin .out-gtp-setting .hint {
+  color: var(--font-light);
+  font-size: var(--font-tiny);
+  line-height: 150%;
+  max-width: 50ch;
+}

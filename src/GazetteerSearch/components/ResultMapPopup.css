@@ -1,0 +1,32 @@
+.ou-gtp-search-result-map .leaflet-popup .leaflet-popup-content-wrapper {
+  border-radius: var(--border-radius);
+}
+
+.ou-gtp-search-result-map .leaflet-popup .leaflet-popup-content {
+  margin: 15px;
+  width: 300px !important;
+}
+
+.ou-gtp-resultmap-popup .close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.ou-gtp-resultmap-popup p {
+  line-height: 150%;
+  margin: 0;
+  padding: 0;
+}
+
+.ou-gtp-resultmap-popup a {
+  padding: 0;
+}
+
+.ou-gtp-resultmap-popup p.description {
+  color: var(--font-light);
+}
+
+.ou-gtp-resultmap-popup button.confirm {
+  margin-top: 0.8em;
+}

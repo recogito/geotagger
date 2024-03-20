@@ -1,0 +1,61 @@
+.ou-gtp-result-card {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  padding: calc(12px + 1.6em) 30px 12px 15px;
+  position: relative;
+  width: 100%;
+}
+
+.ou-gtp-result-card button {
+  align-items: flex-start;
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  left: 0;
+  padding: 15px 15px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.ou-gtp-result-card span {
+  display: block;
+  font-size: var(--font-tiny);
+  line-height: 160%;
+}
+
+.ou-gtp-result-card a {
+  padding: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.ou-gtp-result-card .description {
+  color: var(--font-light);
+  display: -webkit-box;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+}
+
+.ou-gtp-result-card .unlocated {
+  align-items: center;
+  background-color: rgba(7, 82, 154, 0.20);
+  border: 1px solid rgba(7, 82, 154, 0.45);
+  border-radius: var(--border-radius);
+  color: rgb(7, 82, 154);
+  display: inline-flex;
+  font-size: 12px;
+  gap: 0.3em;
+  margin-top: 0.3em;
+  padding: 0 4px 0 3px;
+}
+
+.ou-gtp-result-card .unlocated svg {
+  padding-bottom: 1px;
+} 
