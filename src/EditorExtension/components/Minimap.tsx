@@ -3,7 +3,6 @@ import L from 'leaflet';
 import type { GeoTag } from '../../Types';
 
 import './Minimap.css';
-import 'leaflet/dist/leaflet.css';
 
 interface MinimapProps {
 
@@ -45,7 +44,6 @@ export const Minimap = (props: MinimapProps) => {
     return () => {
       map.remove();
     };
-
   }, [feature?.id]);
 
   return (

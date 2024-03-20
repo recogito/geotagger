@@ -12,6 +12,8 @@ import { useGazetteer } from '../useGazetteer';
 
 import './EditorExtension.css';
 
+import 'leaflet/dist/leaflet.css';
+
 import iconRetinaUrl from './assets/marker-icon-2x.png';
 import iconUrl from './assets/marker-icon.png';
 import shadowUrl from './assets/marker-shadow.png';

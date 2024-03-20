@@ -84,7 +84,6 @@
 }
 
 .ou-gtp-gazetteer-search .results-map {
-  background-color: green;
   flex-grow: 1;
   position: relative;
 }

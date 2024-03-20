@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import L from 'leaflet';
-import type { Map } from 'leaflet';
 import bbox from '@turf/bbox';
 import type { PluginInstallationConfig } from '@components/Plugins';
 import { ResultMapPopup } from './ResultMapPopup';
+import { useLeaflet } from '../../useLeaflet';
 import type { GeoJSONFeature } from '../../Types';
 
 import './ResultMap.css';
@@ -23,9 +23,19 @@ export const ResultMap = (props: ResultMapProps) => {
 
   const { basemap} = props.config.meta.options;
 
-  const el = useRef<HTMLDivElement>(null);
+  // Set map to default position if there are no initial
+  // located results. Otherwise, the [props.result, map] effect
+  // will handle map location.
+  const [ initialCenter, initialZoom ] = useMemo(() => {
+    const locatedResults = props.results.filter(f => f.geometry?.coordinates);
+    return (locatedResults.length === 0) ? [ [0, 0], 2 ] : [ undefined, undefined ];
+  }, []);
 
-  const [map, setMap] = useState<Map | undefined>();
+  const { ref, map } = useLeaflet({
+    basemap,
+    initialCenter,
+    initialZoom
+  });
 
   useEffect(() => {
     if (!map) return;
@@ -70,34 +80,8 @@ export const ResultMap = (props: ResultMapProps) => {
     }
   }, [props.results, map]);
 
-  useEffect(() => {
-    if (!el.current) return;
-
-    const map = L.map(el.current, { zoomControl: false });
-    setMap(map);
-
-    // Set map to default position if there are no initial
-    // located results. Otherwise, the [props.result, map] effect
-    // will handle map location.
-    const locatedResults = props.results.filter(f => f.geometry?.coordinates);
-    if (locatedResults.length === 0) map.setView([0, 0], 2);
-
-    L.control.zoom({
-      position: 'topright'
-    }).addTo(map);
-
-    L.tileLayer(basemap, {
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
-
-    return () => {
-      setMap(undefined);
-      map.remove();
-    };
-  }, []);
-
   return (
-    <div className="ou-gtp-search-result-map" ref={el} />
+    <div className="ou-gtp-search-result-map" ref={ref} />
   )
 
 }
