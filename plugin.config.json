@@ -1,6 +1,6 @@
 {
   "id": "ba085ab9-4fdb-433f-833a-b90555b28d3d",
-  "name": "Geo-Tagging",
+  "name": "GeoTagger",
   "version": "0.1.0",
   "description": "Tag annotations with geographical references from a gazetteer.",
   "author": "Pelagios Network",
@@ -28,7 +28,7 @@
     "geojson_presets": [{
       "preset_id": "pleiades",
       "preset_name": "Pleiades (GeoJSON)", 
-      "file_url": "https://raw.githubusercontent.com/recogito/recogito-plugin-geotagging/main/gazetteers/pleiades-all-places.lp.json"
+      "file_url": "https://raw.githubusercontent.com/recogito/geotagger/main/gazetteers/pleiades-all-places.lp.json"
     }]
   }
 }
