@@ -3,26 +3,24 @@ import { X } from '@phosphor-icons/react';
 import { formatId } from '../../utils';
 import type { GeoJSONFeature } from '../../Types';
 
-import './ResultMapPopup.css';
+import './DocumentMapPopup.css';
 
-interface ResultMapPopupProps {
+interface DocumentMapPopupProps {
 
-  config: PluginInstallationConfig;
+  plugin: PluginInstallationConfig;
 
-  result: GeoJSONFeature;
+  feature: GeoJSONFeature;
 
   onClose(): void;
 
-  onConfirm(): void;
-
 }
 
-export const ResultMapPopup = (props: ResultMapPopupProps) => {
+export const DocumentMapPopup = (props: DocumentMapPopupProps) => {
 
-  const { properties } = props.result;
+  const { properties } = props.feature;
 
   return (
-    <div className="ou-gtp-resultmap-popup">
+    <div className="ou-gtp-document-map-popup">
       <div className="close">
         <button 
           className="unstyled icon-only"
@@ -34,18 +32,14 @@ export const ResultMapPopup = (props: ResultMapPopupProps) => {
       <p className="title">{properties.title}</p>
 
       <p className="identifier">
-        <a className="source-link" href={props.result.id} target="_blank">
-          {formatId(props.result.id, props.config)}
+        <a className="source-link" href={props.feature.id} target="_blank">
+          {formatId(props.feature.id, props.plugin)}
         </a>
       </p>
       
       <p className="description">
         {properties.description}
       </p>
-      
-      <button 
-        className="confirm primary sm flat"
-        onClick={props.onConfirm}>Confirm</button>
     </div>
   )
 

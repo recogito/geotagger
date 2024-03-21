@@ -1,3 +1,6 @@
+import type { ReactNode } from 'react';
+import { createRoot } from 'react-dom/client';
+import L from 'leaflet';
 import type { PluginInstallationConfig } from '@components/Plugins';
 
 export const formatId = (id: string, config: PluginInstallationConfig) => {
@@ -27,4 +30,12 @@ export const formatId = (id: string, config: PluginInstallationConfig) => {
       : id.substring(startIdx, endIdx);     
   }
 
+}
+
+export const createPopup = (component: ReactNode) => {
+  const container = document.createElement('div');
+
+  createRoot(container).render(component);
+
+  return L.popup({ content: container, closeButton: false });
 }

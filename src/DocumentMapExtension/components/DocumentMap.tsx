@@ -1,7 +1,10 @@
 import { useMemo, useEffect } from 'react';
+import L from 'leaflet';
 import type { SupabaseAnnotation, SupabaseAnnotationBody } from '@recogito/annotorious-supabase';
 import { useAnnotations } from '@annotorious/react';
 import type { PluginInstallationConfig } from '@components/Plugins';
+import { DocumentMapPopup } from './DocumentMapPopup';
+import { createPopup } from '../../utils';
 import { useLeaflet } from '../../useLeaflet';
 
 import './DocumentMap.css';
@@ -37,9 +40,14 @@ export const DocumentMap = (props: DocumentMapProps) => {
     const markers = features.map(feature => {
       const [lon, lat] = feature.geometry.coordinates; 
 
-      // TODO popup
+      const popup = createPopup(
+        <DocumentMapPopup
+          plugin={props.plugin} 
+          feature={feature} 
+          onClose={() => popup.close()} />
+      );
       
-      return L.marker([lat, lon]);
+      return L.marker([lat, lon]).bindPopup(popup);
     });
 
     const layer = L.layerGroup(markers).addTo(map);

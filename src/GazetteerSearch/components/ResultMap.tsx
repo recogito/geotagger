@@ -1,10 +1,10 @@
 import { useEffect, useMemo } from 'react';
-import { createRoot } from 'react-dom/client';
 import L from 'leaflet';
 import bbox from '@turf/bbox';
 import type { PluginInstallationConfig } from '@components/Plugins';
 import { ResultMapPopup } from './ResultMapPopup';
 import { useLeaflet } from '../../useLeaflet';
+import { createPopup } from '../../utils';
 import type { GeoJSONFeature } from '../../Types';
 
 import './ResultMap.css';
@@ -57,18 +57,13 @@ export const ResultMap = (props: ResultMapProps) => {
     const markers = located.map(feature => {
       const [lon, lat] = feature.geometry.coordinates; 
 
-      const container = document.createElement('div');
-
-      createRoot(container).render(
+      const popup = createPopup(
         <ResultMapPopup 
           config={props.config} 
           result={feature} 
           onClose={() => popup.close()}
           onConfirm={() => props.onConfirm(feature)} />
       );
-
-      const popup = 
-        L.popup({ content: container, closeButton: false });
 
       return L.marker([lat, lon]).bindPopup(popup);
     });
