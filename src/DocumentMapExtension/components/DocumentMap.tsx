@@ -1,11 +1,10 @@
-import { useMemo, useEffect } from 'react';
+import { useEffect } from 'react';
 import L from 'leaflet';
 import bbox from '@turf/bbox';
-import type { SupabaseAnnotation, SupabaseAnnotationBody } from '@recogito/annotorious-supabase';
-import { useAnnotations } from '@annotorious/react';
 import type { PluginInstallationConfig } from '@components/Plugins';
 import { DocumentMapPopup } from './DocumentMapPopup';
 import { createPopup } from '../../utils';
+import { useGeotags } from '../../useGeotags';
 import { useLeaflet } from '../../useLeaflet';
 
 import './DocumentMap.css';
@@ -18,14 +17,7 @@ interface DocumentMapProps {
 
 export const DocumentMap = (props: DocumentMapProps) => {
 
-  const annotations = useAnnotations<SupabaseAnnotation>();
-
-  const geotags = useMemo(() => annotations
-    .reduce<SupabaseAnnotationBody[]>((all, annotation) => {
-      const bodies = annotation.bodies.filter(b => b.purpose === 'geotagging' && b.value);
-      return [...all, ...bodies];
-    }, [])
-  , [annotations]);
+  const geotags = useGeotags();
 
   const { basemap } = props.plugin.meta.options;
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createBody } from '@annotorious/react';
+import L from 'leaflet';
 import type { SupabaseAnnotation } from '@recogito/annotorious-supabase';
 import type { AnnotationEditorExtensionProps } from '@components/Plugins/ExtensionProps';
 import { AddGeoTag } from './components/AddGeoTag';
