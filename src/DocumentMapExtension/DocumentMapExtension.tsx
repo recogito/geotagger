@@ -1,5 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { Globe, X } from '@phosphor-icons/react';
+import L from 'leaflet';
 import type { AnnotationToolbarExtensionProps } from '@components/Plugins';
 import { DocumentMap } from './components/DocumentMap';
 import { GeoJSONDownload } from './components/GeoJSONDownload';
@@ -7,6 +8,19 @@ import { GeoJSONDownload } from './components/GeoJSONDownload';
 import './DocumentMapExtension.css';
 
 import 'leaflet/dist/leaflet.css';
+
+import iconRetinaUrl from './assets/marker-icon-2x.png';
+import iconUrl from './assets/marker-icon.png';
+import shadowUrl from './assets/marker-shadow.png';
+
+// @ts-ignore
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl
+});
 
 export const DocumentMapExtension = (props: AnnotationToolbarExtensionProps) => {
 
