@@ -10,8 +10,6 @@ import 'leaflet/dist/leaflet.css';
 
 export const DocumentMapExtension = (props: AnnotationToolbarExtensionProps) => {
 
-  const foo = props.document
-
   return (
     <Dialog.Root>
       <Dialog.Trigger>
