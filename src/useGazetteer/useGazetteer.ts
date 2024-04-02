@@ -7,7 +7,7 @@ export const useGazetteer = (plugin: PluginInstallationConfig): Gazetteer | unde
 
   const { state, setState } = useSharedPluginState<{ gazetteer?: Gazetteer }>(plugin.meta.id);
 
-  const datasource = plugin.settings.plugin_settings?.type || 'wikidata';
+  const datasource = plugin.settings.plugin_settings?.datasource?.type || 'wikidata';
 
   useEffect(() => {
     const gazetteer = state?.gazetteer;
