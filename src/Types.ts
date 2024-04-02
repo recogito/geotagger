@@ -63,3 +63,13 @@ export interface GeoJSONGazetteerPreset {
   file_url: string;
 
 }
+
+export interface BasemapConfig {
+
+  name?: string;
+  
+  attribution?: string; 
+
+  url: string;
+
+}

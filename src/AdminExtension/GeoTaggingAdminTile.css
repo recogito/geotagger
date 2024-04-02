@@ -7,8 +7,8 @@
   margin-bottom: 2em;
 }
 
-.ou-gtp-admin .out-gtp-setting input {
-  width: 290px;
+.ou-gtp-admin .out-gtp-setting input[type="text"] {
+  width: 100%;
 }
 
 .ou-gtp-admin .out-gtp-setting .hint {
@@ -16,4 +16,28 @@
   font-size: var(--font-tiny);
   line-height: 150%;
   max-width: 50ch;
+}
+
+.ou-gtp-admin .out-gtp-setting.basemap-setting ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ou-gtp-admin .out-gtp-setting.basemap-setting li {
+  align-items: center;
+  display: flex;
+  gap: 0.3em;
+  white-space: nowrap;
+}
+
+.ou-gtp-admin .out-gtp-setting.basemap-setting input {
+  display: block;
+  margin: 0 0 0.1em 0.1em;
+  padding: 0;
+}
+
+.ou-gtp-admin .out-gtp-setting.basemap-setting input[type="text"] {
+  flex-grow: 1;
+  padding: 6px;
 }
