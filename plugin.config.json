@@ -22,7 +22,7 @@
         "url": "https://cawm.lib.uiowa.edu/tiles/{z}/{x}/{y}.png" 
       }, { 
         "name": "Digital Atlas of the Roman Empire", 
-        "attribution": "&copy; <a href=\"https://imperium.ahlfeldt.se/\">DARE (CC-BY-4.0)</a>", 
+        "attribution": "&copy; <a href=\"https://imperium.ahlfeldt.se/\">DARE</a>", 
         "url": "https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png"
       }
     ],
