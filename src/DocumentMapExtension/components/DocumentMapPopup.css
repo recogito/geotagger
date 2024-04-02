@@ -31,3 +31,13 @@
 .leaflet-popup-content .ou-gtp-document-map-popup p.description {
   color: var(--font-light);
 }
+
+.leaflet-popup-content .ou-gtp-document-map-popup p.quotes {
+  background-color: var(--gray-100);
+  border-radius: var(--border-radius);
+  font-family: 'Times New Roman', Times, serif;
+  font-size: var(--font-small);
+  font-style: italic;
+  margin: 0.5em 0;
+  padding: 4px 8px;
+}

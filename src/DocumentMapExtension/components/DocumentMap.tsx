@@ -4,7 +4,7 @@ import bbox from '@turf/bbox';
 import type { PluginInstallationConfig } from '@components/Plugins';
 import { DocumentMapPopup } from './DocumentMapPopup';
 import { createPopup } from '../../utils';
-import { useGeotagFeatures } from '../../useGeotags';
+import { useGeotagFeatures, GeoTagFeature } from '../../useGeotags';
 import { useLeaflet } from '../../useLeaflet';
 
 import './DocumentMap.css';
@@ -29,7 +29,14 @@ export const DocumentMap = (props: DocumentMapProps) => {
     const features = geotags
       .filter(f => f.geometry?.coordinates);
 
-    console.log(features);
+    const byPlace = 
+      // Group features by place
+      features.reduce<[string, GeoTagFeature[]][]>((entries, feature) => {
+        const existing = entries.find(([id, features]) => id === feature.id);
+        return existing 
+          ? entries.map(([id, entries]) => id === feature.id ? [id, [...entries, feature]] : [id, entries]) 
+          : [...entries, [feature.id, [feature]]];
+      }, []);
 
     const [minLon, minLat, maxLon, maxLat] = bbox({ 
       type: 'FeatureCollection',
@@ -43,13 +50,13 @@ export const DocumentMap = (props: DocumentMapProps) => {
       ], { maxZoom: 12, animate: false });
     }
 
-    const markers = features.map(feature => {
-      const [lon, lat] = feature.geometry!.coordinates; 
+    const markers = byPlace.map(([id, features]) => {
+      const [lon, lat] = features[0].geometry!.coordinates; 
 
       const popup = createPopup(
         <DocumentMapPopup
           plugin={props.plugin} 
-          feature={feature} 
+          features={features} 
           onClose={() => popup.close()} />
       );
       

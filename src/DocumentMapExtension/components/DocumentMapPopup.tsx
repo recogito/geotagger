@@ -9,7 +9,7 @@ interface DocumentMapPopupProps {
 
   plugin: PluginInstallationConfig;
 
-  feature: GeoTagFeature
+  features: GeoTagFeature[]
 
   onClose(): void;
 
@@ -17,7 +17,9 @@ interface DocumentMapPopupProps {
 
 export const DocumentMapPopup = (props: DocumentMapPopupProps) => {
 
-  const { properties } = props.feature;
+  const first = props.features[0];
+
+  const quotes = props.features.map(f => f.properties.quote).filter(Boolean);
 
   return (
     <div className="ou-gtp-document-map-popup">
@@ -29,17 +31,23 @@ export const DocumentMapPopup = (props: DocumentMapPopupProps) => {
         </button>
       </div>
 
-      <p className="title">{properties.title}</p>
+      <p className="title">{first.properties.title}</p>
 
       <p className="identifier">
-        <a className="source-link" href={props.feature.id} target="_blank">
-          {formatId(props.feature.id, props.plugin)}
+        <a className="source-link" href={first.id} target="_blank">
+          {formatId(first.id, props.plugin)}
         </a>
       </p>
       
       <p className="description">
-        {properties.description}
+        {first.properties.description}
       </p>
+
+      {quotes.length > 0 && (
+        <p className="quotes">
+          {quotes.map(str => `«${str}»`).join(' · ')}
+        </p>
+      )}
     </div>
   )
 
