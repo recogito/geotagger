@@ -1,0 +1,13 @@
+button.download-geojson {
+  border: 1px solid var(--gray-400);
+  border-radius: var(--border-radius);
+  color: var(--gray-500);
+  display: flex;
+  gap: 0.5em;
+  font-size: 11.5px;
+  padding: 3px 6px 2px 5px;
+}
+
+button.download-geojson svg {
+  color: var(--gray-500);
+}
