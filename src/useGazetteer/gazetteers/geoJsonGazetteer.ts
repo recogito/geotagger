@@ -5,7 +5,7 @@ import type { Gazetteer, GeoJSONFeature } from '../../Types';
 export const createGeoJSONGazetteer = (
   plugin: PluginInstallationConfig
 ): Promise<Gazetteer> => 
-  fetch(plugin.settings.plugin_settings.url)
+  fetch(plugin.settings.plugin_settings.datasource.url)
     .then(res => res.json())
     .then(data => {
       const features = data.features.map((f: any) => {
