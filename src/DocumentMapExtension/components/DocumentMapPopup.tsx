@@ -1,7 +1,7 @@
 import type { PluginInstallationConfig } from '@components/Plugins';
 import { X } from '@phosphor-icons/react';
 import { formatId } from '../../utils';
-import type { GeoJSONFeature } from '../../Types';
+import type { GeoTagFeature } from '../../useGeotags';
 
 import './DocumentMapPopup.css';
 
@@ -9,7 +9,7 @@ interface DocumentMapPopupProps {
 
   plugin: PluginInstallationConfig;
 
-  feature: GeoJSONFeature;
+  feature: GeoTagFeature
 
   onClose(): void;
 

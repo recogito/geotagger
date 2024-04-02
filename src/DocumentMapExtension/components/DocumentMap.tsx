@@ -4,7 +4,7 @@ import bbox from '@turf/bbox';
 import type { PluginInstallationConfig } from '@components/Plugins';
 import { DocumentMapPopup } from './DocumentMapPopup';
 import { createPopup } from '../../utils';
-import { useGeotags } from '../../useGeotags';
+import { useGeotagFeatures } from '../../useGeotags';
 import { useLeaflet } from '../../useLeaflet';
 
 import './DocumentMap.css';
@@ -17,7 +17,7 @@ interface DocumentMapProps {
 
 export const DocumentMap = (props: DocumentMapProps) => {
 
-  const geotags = useGeotags();
+  const geotags = useGeotagFeatures();
 
   const { basemap } = props.plugin.meta.options;
 
@@ -27,8 +27,9 @@ export const DocumentMap = (props: DocumentMapProps) => {
     if (!map || !geotags || geotags.length === 0) return;
 
     const features = geotags
-      .map(b => JSON.parse(b.value!))
       .filter(f => f.geometry?.coordinates);
+
+    console.log(features);
 
     const [minLon, minLat, maxLon, maxLat] = bbox({ 
       type: 'FeatureCollection',
@@ -43,7 +44,7 @@ export const DocumentMap = (props: DocumentMapProps) => {
     }
 
     const markers = features.map(feature => {
-      const [lon, lat] = feature.geometry.coordinates; 
+      const [lon, lat] = feature.geometry!.coordinates; 
 
       const popup = createPopup(
         <DocumentMapPopup

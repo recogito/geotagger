@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { MagnifyingGlass, Trash } from '@phosphor-icons/react';
 import { Spinner } from '@components/Spinner';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'; 
 import { DownloadSimple } from '@phosphor-icons/react';
-import { useGeotags } from '../../useGeotags';
+import { useGeotagFeatures } from '../../useGeotags';
 import type { DocumentInTaggedContext } from 'src/Types';
 
 import './GeoJSONDownload.css';
@@ -13,7 +13,7 @@ interface GeoJSONDownloadProps {
 
 export const GeoJSONDownload = (props: GeoJSONDownloadProps) => {
 
-  const geotags = useGeotags();
+  const geotags = useGeotagFeatures();
 
   const [disabled, setDisabled] = useState(true);
 
@@ -27,7 +27,6 @@ export const GeoJSONDownload = (props: GeoJSONDownloadProps) => {
     const geojson = {
       type: 'FeatureCollection',
       features: geotags
-        .map(b => JSON.parse(b.value!))
     };
 
     const data = new TextEncoder().encode(JSON.stringify(geojson));

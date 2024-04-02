@@ -16,7 +16,7 @@ export interface GeoJSONFeature {
 
     description?: string;
 
-  },
+  }
 
   geometry: {
 
