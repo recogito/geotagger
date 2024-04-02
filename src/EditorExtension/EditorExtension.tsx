@@ -127,7 +127,7 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
         <div className="place-details-wrapper">
           <Minimap 
             geotag={geotag}
-            basemap={plugin.meta.options.basemap} />
+            plugin={plugin} />
 
           <PlaceDetails 
             config={plugin}

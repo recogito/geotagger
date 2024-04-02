@@ -24,8 +24,8 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
   }, [basemap]);
 
   const hasChanges =
-    datasource?.id !== plugin_settings?.id ||
-    datasource?.url !== plugin_settings?.url ||
+    datasource?.id !== plugin_settings?.datasource?.id ||
+    datasource?.url !== plugin_settings?.datasource?.url ||
     basemap.url !== plugin_settings?.basemap?.url; 
 
   const onSave = () => {

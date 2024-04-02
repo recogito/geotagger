@@ -19,9 +19,7 @@ export const DocumentMap = (props: DocumentMapProps) => {
 
   const geotags = useGeotagFeatures();
 
-  const { basemap } = props.plugin.meta.options;
-
-  const { ref, map } = useLeaflet({ basemap, initialCenter: [0, 0], initialZoom: 2 });
+  const { ref, map } = useLeaflet({ plugin: props.plugin, initialCenter: [0, 0], initialZoom: 2 });
 
   useEffect(() => {
     if (!map || !geotags || geotags.length === 0) return;

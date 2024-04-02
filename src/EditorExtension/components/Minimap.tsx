@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
+import type { PluginInstallationConfig } from '@components/Plugins';
 import type { GeoTag } from '../../Types';
 
 import './Minimap.css';
@@ -8,7 +9,7 @@ interface MinimapProps {
 
   geotag?: GeoTag;
 
-  basemap: string;
+  plugin: PluginInstallationConfig;
 
 }
 
@@ -35,7 +36,10 @@ export const Minimap = (props: MinimapProps) => {
 
     map.panBy([-108, -15], { animate: false });
 
-    L.tileLayer(props.basemap)
+    const basemap = props.plugin.settings.plugin_settings?.basemap?.url 
+      || props.plugin.meta.options.basemap_presets[0].url;
+
+    L.tileLayer(basemap)
       .addTo(map);
 
     if (hasLocation)

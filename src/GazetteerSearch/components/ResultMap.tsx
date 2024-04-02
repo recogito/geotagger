@@ -20,9 +20,6 @@ interface ResultMapProps {
 }
 
 export const ResultMap = (props: ResultMapProps) => {
-
-  const { basemap} = props.config.meta.options;
-
   // Set map to default position if there are no initial
   // located results. Otherwise, the [props.result, map] effect
   // will handle map location.
@@ -32,7 +29,7 @@ export const ResultMap = (props: ResultMapProps) => {
   }, []);
 
   const { ref, map } = useLeaflet({
-    basemap,
+    plugin: props.config,
     initialCenter,
     initialZoom
   });

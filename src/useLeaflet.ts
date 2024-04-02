@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import type { Map } from 'leaflet';
+import type { PluginInstallationConfig } from '@components/Plugins';
 
 interface LeafletProps {
 
-  basemap: string;
+  plugin: PluginInstallationConfig;
 
   initialCenter?: number[];
 
@@ -31,8 +32,12 @@ export const useLeaflet = (props: LeafletProps) => {
       position: 'topright'
     }).addTo(map);
 
-    L.tileLayer(props.basemap, {
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    const basemap = 
+      props.plugin.settings.plugin_settings.basemap ||
+      props.plugin.meta.options.basemap_presets[0];
+
+    L.tileLayer(basemap.url, {
+      attribution: basemap.attribution
     }).addTo(map);
 
     return () => {
