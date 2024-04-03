@@ -37,6 +37,7 @@ export const useLeaflet = (props: LeafletProps) => {
       props.plugin.meta.options.basemap_presets[0];
 
     L.tileLayer(basemap.url, {
+      crossOrigin: 'anonymous',
       attribution: basemap.attribution
     }).addTo(map);
 

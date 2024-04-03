@@ -19,6 +19,10 @@
   padding: 10px 50px 10px 12px;
 }
 
+.ou-gtp-document-map-container .titlebar-right {
+  display: flex;
+}
+
 .ou-gtp-document-map-container .dialog-close {
   top: 7px;
 } 

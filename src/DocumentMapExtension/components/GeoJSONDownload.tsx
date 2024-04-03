@@ -45,7 +45,7 @@ export const GeoJSONDownload = (props: GeoJSONDownloadProps) => {
       disabled={disabled}
       className="unstyled download-geojson"
       onClick={onDownload}>
-      <DownloadSimple size={20} /> Download GeoJSON
+      <DownloadSimple size={20} /> GeoJSON
     </button>
   )
 
