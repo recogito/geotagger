@@ -1,11 +1,12 @@
 import type { PluginInstallationConfig } from '@components/Plugins';
-import { Question } from '@phosphor-icons/react';
+import { Flag, Question } from '@phosphor-icons/react';
 import { PlaceDetailsFooter } from './PlaceDetailsFooter';
 import { PlaceDetailsActions } from './PlaceDetailsActions';
-import type { Gazetteer, GeoTag } from '../../Types';
+import type { GeoTag } from '../../Types';
+import { formatId } from '../../utils';
 
 import './PlaceDetails.css';
-import { formatId } from '../../utils';
+import { Trash } from '@phosphor-icons/react/dist/ssr';
 
 interface PlaceDetailsProps {
 
@@ -18,6 +19,8 @@ interface PlaceDetailsProps {
   onDelete(): void;
 
   onEdit(): void;
+
+  onFlag(): void;
 
 }
 
@@ -62,9 +65,28 @@ export const PlaceDetails = (props: PlaceDetailsProps) => {
         )}
       </div>
     </article>
+  ) : confirmed ? (
+    <article className="ou-gtp-placedetails flagged">
+      <div>
+        An unidentified place
+      </div>
+
+      <div>
+        <button onClick={props.onEdit}>Change</button>
+        <button onClick={props.onDelete}>
+          <Trash size={18} />
+        </button>
+      </div>
+    </article>
   ) : (
     <article className="ou-gtp-placedetails no-match">
       <div>No match</div>
+
+      <button 
+        className="flag-unidentified sm unstyled"
+        onClick={props.onFlag}>
+        <Flag size={15} /> Flag as an unidentified place
+      </button>
     </article>
   )
 

@@ -71,6 +71,20 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
     saveGeoTag(geotag.feature);
   }
 
+  const onFlag = () => {
+    const next = {
+      ...annotation,
+      bodies: [
+        ...annotation.bodies.filter(b => b.purpose !== 'geotagging'),
+        createBody(annotation, {
+          purpose: 'geotagging'
+        }, new Date(), props.me)
+      ]
+    };
+
+    props.onUpdateAnnotation(next);
+  }
+
   const onQuickSearchResponse = (feature?: GeoJSONFeature) => {
     if (feature)
       setGeotag({ feature });
@@ -97,9 +111,9 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
   useEffect(() => {
     const geotag = annotation.bodies.find(b => b.purpose === 'geotagging');
 
-    if (geotag?.value) {
+    if (geotag) {
       const parsed: GeoTag = {
-        feature: JSON.parse(geotag.value),
+        feature: geotag.value ? JSON.parse(geotag.value) : undefined,
         confirmed: {
           by: geotag.updatedBy || geotag.creator,
           at: geotag.updated || geotag.created
@@ -112,9 +126,9 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
     }
   }, [annotation]);
 
-  return (geotag?.confirmed || (showQuickSearch && gazetteer)) ? (
+  return (geotag || (showQuickSearch && gazetteer)) ? (
     <div className="ou-gtp-editor-ext">
-      {(showQuickSearch && !geotag?.confirmed) && (
+      {(showQuickSearch && !geotag) && (
         <QuickSearch 
           gazetteer={gazetteer!} 
           quote={quote} 
@@ -134,7 +148,8 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
             geotag={geotag} 
             onConfirm={onConfirm}
             onDelete={onDelete} 
-            onEdit={() => setShowAdvancedSearch(true)} />
+            onEdit={() => setShowAdvancedSearch(true)} 
+            onFlag={onFlag} />
         </div>
       )}
 

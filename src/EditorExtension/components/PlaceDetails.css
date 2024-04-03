@@ -35,7 +35,8 @@
   width: 67%;
 }
 
-.ou-gtp-placedetails.no-match {
+.ou-gtp-placedetails.no-match,
+.ou-gtp-placedetails.flagged {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -44,6 +45,57 @@
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   justify-content: center;
+}
+
+.ou-gtp-placedetails.no-match .flag-unidentified {
+  align-items: center;
+  background-color: #6c530c28;
+  border: 1px solid #6c530c;
+  border-radius: var(--border-radius);
+  color: #6c530c;
+  display: flex;
+  font-size: 12px;
+  gap: 0.5em;
+  margin-top: 2px;
+  padding: 3px 5px 3px 4px;
+}
+
+.ou-gtp-placedetails.no-match .flag-unidentified svg {
+  color: #6c530c;
+  position: relative;
+  top: 0.5px;
+}
+
+.ou-gtp-placedetails.flagged {
+  color: #493809;
+}
+
+.ou-gtp-placedetails.flagged button {
+  all: unset;
+  background-color: #6c530c;
+  border-radius: var(--border-radius);
+  color: #fff;
+  cursor: pointer;
+  display: inline;
+  height: 1.8em;
+  line-height: 100%;
+  margin: 4px 0 0 0;
+  padding: 2px 12px;
+}
+.ou-gtp-placedetails.flagged :is(button, a.button) + :is(button, a.button) {
+  margin-left: 0;
+}
+
+.ou-gtp-placedetails.flagged button svg {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.ou-gtp-placedetails.flagged > div {
+  align-items: center;
+  display: flex;
+  gap: 0.3em;
 }
 
 .ou-gtp-placedetails .wrapper {

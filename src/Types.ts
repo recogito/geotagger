@@ -30,7 +30,7 @@ export interface GeoJSONFeature {
 
 export interface GeoTag {
 
-  feature: GeoJSONFeature;
+  feature?: GeoJSONFeature;
 
   confirmed?: {
 
