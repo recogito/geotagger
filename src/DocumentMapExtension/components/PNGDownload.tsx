@@ -10,7 +10,7 @@ interface PNGDownloadProps {
 
 export const PNGDownload = (props: PNGDownloadProps) => {
 
-  const onExportPDF = () => {
+  const onExportPNG = () => {
     html2canvas(document.querySelector('.ou-gtp-document-map')!, { useCORS: true, scale: 2 }).then(canvas => {
       const anchor = document.createElement('a');
       anchor.download = `${props.document.name}.png`;
@@ -22,7 +22,7 @@ export const PNGDownload = (props: PNGDownloadProps) => {
   return (
     <button
       className="unstyled download-geojson"
-      onClick={onExportPDF}>
+      onClick={onExportPNG}>
       <Camera size={20} /> PNG
     </button>
   )
