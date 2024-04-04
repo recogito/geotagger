@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'; 
 import { DownloadSimple } from '@phosphor-icons/react';
-import { useGeotagFeatures } from '../../useGeotags';
+import { GeoTagFeature, useGeotagFeatures } from '../../useGeotags';
 import type { DocumentInTaggedContext } from 'src/Types';
 
 import './GeoJSONDownload.css';
@@ -24,9 +24,32 @@ export const GeoJSONDownload = (props: GeoJSONDownloadProps) => {
   }, [geotags]);
 
   const onDownload = () => {
+    // Group features by place
+    const byPlace = geotags
+      .reduce<[string, GeoTagFeature[]][]>((entries, feature) => {
+        const existing = entries.find(([id, _]) => id === feature.id);
+        return existing 
+          ? entries.map(([id, entries]) => id === feature.id ? [id, [...entries, feature]] : [id, entries]) 
+          : [...entries, [feature.id, [feature]]];
+      }, [])
+      .map(([_, features]) => {
+        const quotes = features.map(f => f.properties.quote).filter(Boolean) as string[];
+
+        // Use first feature as a 'blueprint', but discard its quote
+        const { quote, ...properties } = features[0].properties;
+
+        return {
+          ...features[0],
+          properties: {
+            ...properties,
+            quotes
+          }
+        }
+      });
+
     const geojson = {
       type: 'FeatureCollection',
-      features: geotags
+      features: byPlace
     };
 
     const data = new TextEncoder().encode(JSON.stringify(geojson));

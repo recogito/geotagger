@@ -31,7 +31,7 @@ export const DocumentMapExtension = (props: AnnotationToolbarExtensionProps) => 
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="dialog-overlay" />
+        <Dialog.Overlay className="ou-gtp-document-map-overlay dialog-overlay" />
 
         <Dialog.Content 
           className="dialog-content ou-gtp-document-map-container not-annotatable">

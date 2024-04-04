@@ -27,15 +27,6 @@ export const DocumentMap = (props: DocumentMapProps) => {
     const features = geotags
       .filter(f => f.geometry?.coordinates);
 
-    const byPlace = 
-      // Group features by place
-      features.reduce<[string, GeoTagFeature[]][]>((entries, feature) => {
-        const existing = entries.find(([id, features]) => id === feature.id);
-        return existing 
-          ? entries.map(([id, entries]) => id === feature.id ? [id, [...entries, feature]] : [id, entries]) 
-          : [...entries, [feature.id, [feature]]];
-      }, []);
-
     const [minLon, minLat, maxLon, maxLat] = bbox({ 
       type: 'FeatureCollection',
       features
@@ -48,7 +39,16 @@ export const DocumentMap = (props: DocumentMapProps) => {
       ], { maxZoom: 12, animate: false });
     }
 
-    const markers = byPlace.map(([id, features]) => {
+    const byPlace = 
+      // Group features by place
+      features.reduce<[string, GeoTagFeature[]][]>((entries, feature) => {
+        const existing = entries.find(([id, _]) => id === feature.id);
+        return existing 
+          ? entries.map(([id, entries]) => id === feature.id ? [id, [...entries, feature]] : [id, entries]) 
+          : [...entries, [feature.id, [feature]]];
+      }, []);
+
+    const markers = byPlace.map(([_, features]) => {
       const [lon, lat] = features[0].geometry!.coordinates; 
 
       const popup = createPopup(

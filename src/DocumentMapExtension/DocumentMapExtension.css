@@ -1,11 +1,15 @@
+.dialog-overlay.ou-gtp-document-map-overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 .dialog-content.ou-gtp-document-map-container {
   display: flex;
   flex-direction: column;
-  height: 70vh;
-  max-height: 70vh;
-  max-width: 85vw;
+  height: 92vh;
+  max-height: 92vh;
+  max-width: 92vw;
   padding: 0;
-  width: 85vw;
+  width: 92vw;
 }
 
 .ou-gtp-document-map-container .dialog-title {
