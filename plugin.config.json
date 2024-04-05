@@ -17,6 +17,10 @@
         "attribution": "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>", 
         "url": "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
       }, { 
+        "name": "Consortium of Ancient World Mappers", 
+        "attribution": "&copy; <a href=\"https://cawm.lib.uiowa.edu/index.html\">CAWM (CC-BY-4.0)</a>", 
+        "url": "https://cawm.lib.uiowa.edu/tiles/{z}/{x}/{y}.png" 
+      }, { 
         "name": "Digital Atlas of the Roman Empire", 
         "attribution": "&copy; <a href=\"https://imperium.ahlfeldt.se/\">DARE</a>", 
         "url": "https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png"
