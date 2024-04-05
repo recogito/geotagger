@@ -11,10 +11,10 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
 
   const basemapURL = useRef<HTMLInputElement>(null);
 
-  const [datasource, setDatasource] = useState<DataSource | undefined>(plugin_settings.datasource);
+  const [datasource, setDatasource] = useState<DataSource | undefined>(plugin_settings?.datasource);
 
   const [basemap, setBasemap] = useState<BasemapConfig>(
-    plugin_settings.basemap ||
+    plugin_settings?.basemap ||
     props.plugin.meta.options.basemap_presets[0]
   );
 
