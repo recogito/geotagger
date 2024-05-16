@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createBody } from '@annotorious/react';
 import L from 'leaflet';
 import type { SupabaseAnnotation } from '@recogito/annotorious-supabase';
@@ -12,7 +12,6 @@ import type { GeoTag, GeoJSONFeature } from '../Types';
 import { useGazetteer } from '../useGazetteer';
 
 import './EditorExtension.css';
-
 import 'leaflet/dist/leaflet.css';
 
 import iconRetinaUrl from '../../assets/marker-icon-2x.png';
@@ -50,6 +49,8 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
   const [showQuickSearch, setShowQuickSearch] = useState(false);
 
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+
+  const isNewAnnotation = useMemo(() => annotation.bodies.length === 0, [annotation.id]);
 
   const saveGeoTag = (feature: GeoJSONFeature) => {
     const next = {
@@ -146,6 +147,7 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
           <PlaceDetails 
             config={plugin}
             geotag={geotag} 
+            me={props.me}
             onConfirm={onConfirm}
             onDelete={onDelete} 
             onEdit={() => setShowAdvancedSearch(true)} 
@@ -162,10 +164,10 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
           onSelect={onChange}/>
       )}
     </div>
-  ) : (
+  ) : (isNewAnnotation || props.isEditable) ? (
     <AddGeoTag 
       initializing={!gazetteer}
       onClick={() => setShowQuickSearch(true)} />
-  )
+  ) : null;
 
 }

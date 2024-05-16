@@ -1,18 +1,20 @@
 import type { PluginInstallationConfig } from '@components/Plugins';
-import { Flag, Question } from '@phosphor-icons/react';
+import { Flag, Question, Trash } from '@phosphor-icons/react';
+import type { User } from '@annotorious/react';
 import { PlaceDetailsFooter } from './PlaceDetailsFooter';
 import { PlaceDetailsActions } from './PlaceDetailsActions';
 import type { GeoTag } from '../../Types';
 import { formatId } from '../../utils';
 
 import './PlaceDetails.css';
-import { Trash } from '@phosphor-icons/react/dist/ssr';
 
 interface PlaceDetailsProps {
 
   config: PluginInstallationConfig;
 
   geotag?: GeoTag;
+
+  me: User;
 
   onConfirm(): void;
 
@@ -30,6 +32,8 @@ export const PlaceDetails = (props: PlaceDetailsProps) => {
 
   const isUnlocated = !feature?.geometry?.coordinates;
 
+  const isMine = props.geotag?.confirmed?.by?.id === props.me.id;
+
   return feature ? (
     <article className="ou-gtp-placedetails">
       {isUnlocated && (
@@ -39,7 +43,7 @@ export const PlaceDetails = (props: PlaceDetailsProps) => {
       )}
 
       <div className="place-details">
-        {confirmed && (
+        {confirmed && isMine && (
           <PlaceDetailsActions 
             onDelete={props.onDelete}
             onEdit={props.onEdit} />
