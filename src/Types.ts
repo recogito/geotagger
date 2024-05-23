@@ -10,6 +10,8 @@ export interface GeoJSONFeature {
 
   id: string;
 
+  type: 'Feature',
+
   properties: {
 
     title: string;

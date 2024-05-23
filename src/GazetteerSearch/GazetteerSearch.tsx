@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import centroid from '@turf/centroid';
 import { ListDashes, MagnifyingGlass, X } from '@phosphor-icons/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useDebounce } from 'use-debounce';
@@ -48,8 +49,19 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
   useEffect(() => {
     search(query, 100)
       .then(results => {
+        const pointFeatures = results.map(f => {
+          if (!f.geometry || f.geometry.type === 'Point') {
+            // Pass through point & unlocated features
+            return f;
+          } else {
+            // Anything else: reduce to centroid
+            const { geometry } = centroid(f);
+            return { ...f, geometry };
+          }
+        });
+
         setSearching(false);
-        setResults(results);
+        setResults(pointFeatures);
       })
       .catch(error => {
         console.error(error);
