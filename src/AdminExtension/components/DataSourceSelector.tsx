@@ -43,8 +43,8 @@ export const DataSourceSelector = (props: DataSourceSelectorProps) => {
     } else {
       props.onChange({
         id: value,
-        type: value as 'wikidata' | 'whg' | 'geojson'
-      })
+        type: value as 'coredata' | 'wikidata' | 'whg' | 'geojson'
+      });
     }
   } 
 
@@ -67,6 +67,10 @@ export const DataSourceSelector = (props: DataSourceSelectorProps) => {
 
             <SelectItem value="whg">
               World Historical Gazetteer
+            </SelectItem>
+
+            <SelectItem value="coredata">
+              Core Data Cloud
             </SelectItem>
 
             {presets.map((preset: any) => (

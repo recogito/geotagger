@@ -50,7 +50,7 @@ export interface DataSource {
 
   name?: string;
 
-  type: 'geojson' | 'whg' | 'wikidata';
+  type: 'coredata' | 'geojson' | 'whg' | 'wikidata';
 
   url?: string;
 

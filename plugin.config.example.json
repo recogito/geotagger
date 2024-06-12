@@ -44,6 +44,14 @@
       "preset_id": "pleiades",
       "preset_name": "Pleiades (GeoJSON)", 
       "file_url": "https://raw.githubusercontent.com/recogito/geotagger/main/gazetteers/pleiades-all-places.lp.json"
-    }]
+    }],
+    "core_data_config": {
+      "host": "my-typesense-host.typesense.net",
+      "port": 443,
+      "api_key": "my-typesense-api-key",
+      "collection_name": "my-collection",
+      "query_by": "title,names",
+      "limit": 100
+    }
   }
 }

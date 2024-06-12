@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSharedPluginState, type PluginInstallationConfig } from '@components/Plugins';
 import type { Gazetteer } from '../Types';
-import { createGeoJSONGazetteer, createWHGazetteer, createWikidataGazetteer } from './gazetteers';
+import { createCoreDataGazetteer, createGeoJSONGazetteer, createWHGazetteer, createWikidataGazetteer } from './gazetteers';
 
 export const useGazetteer = (plugin: PluginInstallationConfig): Gazetteer | undefined => {
 
@@ -20,6 +20,8 @@ export const useGazetteer = (plugin: PluginInstallationConfig): Gazetteer | unde
       createGeoJSONGazetteer(plugin).then(gazetteer => setState({ gazetteer }));
     } else if (datasource === 'whg') {
       setState({ gazetteer: createWHGazetteer() });
+    } else if (datasource === 'coredata') {
+      setState({ gazetteer: createCoreDataGazetteer(plugin) });
     } else /* Wikidata default */ {
       setState({ gazetteer: createWikidataGazetteer() });
     }
