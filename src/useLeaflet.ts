@@ -33,7 +33,7 @@ export const useLeaflet = (props: LeafletProps) => {
     }).addTo(map);
 
     const basemap = 
-      props.plugin.settings.plugin_settings.basemap ||
+      props.plugin.settings.plugin_settings?.basemap ||
       props.plugin.meta.options.basemap_presets[0];
 
     L.tileLayer(basemap.url, {
