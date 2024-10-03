@@ -13,13 +13,15 @@ import iconRetinaUrl from '../../assets/marker-icon-2x.png';
 import iconUrl from '../../assets/marker-icon.png';
 import shadowUrl from '../../assets/marker-shadow.png';
 
+console.log(iconRetinaUrl);
+
 // @ts-ignore
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl
+  iconRetinaUrl: iconRetinaUrl.src,
+  iconUrl: iconUrl.src,
+  shadowUrl: shadowUrl.src
 });
 
 export const DocumentMapExtension = (props: AnnotationToolbarExtensionProps) => {

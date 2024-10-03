@@ -22,9 +22,9 @@ import shadowUrl from '../../assets/marker-shadow.png';
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl
+  iconRetinaUrl: iconRetinaUrl.src,
+  iconUrl: iconUrl.src,
+  shadowUrl: shadowUrl.src
 });
 
 const getQuote = (a: SupabaseAnnotation): string | undefined => {

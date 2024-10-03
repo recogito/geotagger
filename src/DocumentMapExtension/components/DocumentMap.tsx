@@ -4,7 +4,7 @@ import bbox from '@turf/bbox';
 import type { PluginInstallationConfig } from '@components/Plugins';
 import { DocumentMapPopup } from './DocumentMapPopup';
 import { createPopup } from '../../utils';
-import { useGeotagFeatures, GeoTagFeature } from '../../useGeotags';
+import { useGeotagFeatures, type GeoTagFeature } from '../../useGeotags';
 import { useLeaflet } from '../../useLeaflet';
 
 import './DocumentMap.css';
