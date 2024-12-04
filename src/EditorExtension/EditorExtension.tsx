@@ -28,10 +28,10 @@ L.Icon.Default.mergeOptions({
 });
 
 const getQuote = (a: SupabaseAnnotation): string | undefined => {
-  const selector = Array.isArray(a.target.selector) ? 
-    a.target.selector[0] : a.target.selector;
+  const selector = Array.isArray(a.target?.selector) ? 
+    a.target.selector[0] : a.target?.selector;
 
-  return selector.quote;
+  return selector?.quote;
 }
 
 export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
