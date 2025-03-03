@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
+import { SupabaseAnnotation } from '@recogito/studio-sdk';
 import { createBody } from '@annotorious/react';
 import L from 'leaflet';
-import type { SupabaseAnnotation } from '@recogito/annotorious-supabase';
-import type { AnnotationEditorExtensionProps } from '@components/Plugins/ExtensionProps';
 import { AddGeoTag } from './components/AddGeoTag';
 import { Minimap } from './components/Minimap';
 import { QuickSearch } from './components/QuickSearch';
@@ -22,9 +21,9 @@ import shadowUrl from '../../assets/marker-shadow.png';
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: iconRetinaUrl.src,
-  iconUrl: iconUrl.src,
-  shadowUrl: shadowUrl.src
+  iconRetinaUrl: iconRetinaUrl,
+  iconUrl: iconUrl,
+  shadowUrl: shadowUrl
 });
 
 const getQuote = (a: SupabaseAnnotation): string | undefined => {
