@@ -1,14 +1,14 @@
 import { forwardRef } from 'react';
+import { Plugin } from '@recogito/studio-sdk';
 import { CaretDown, Check } from '@phosphor-icons/react';
 import * as Select from '@radix-ui/react-select';
-import type { PluginMetadata } from '@components/Plugins';
 import type { DataSource, GeoJSONGazetteerPreset } from '../../Types';
 
 import './DataSourceSelector.css';
 
 interface DataSourceSelectorProps {
 
-  config: PluginMetadata;
+  config: Plugin;
 
   value?: DataSource;
 

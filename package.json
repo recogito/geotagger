@@ -1,12 +1,25 @@
 {
   "name": "@recogito/plugin-geotagging",
-  "version": "0.0.2",
-  "description": "A geo-tagging plugin for the Recogito annotation interface",
-  "main": "src/index.js",
+  "version": "0.1.0",
+  "description": "A geo-tagging plugin for Recogito Studio",
+  "type": "module",
+  "main": "src/index.ts",
   "scripts": {
-    "build": "vite build"
+    "build": "tsc && npm run copy-css",
+    "copy-css": "copyfiles -u 1 \"src/**/*.css\" dist",
+    "dev": "npm start --prefix .dev/"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./GeoTaggingAdminTile": "./dist/AdminExtension/index.js"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.7",
+    "@radix-ui/react-select": "^2.1.6",
+    "@recogito/studio-sdk": "^0.2.7",
     "@turf/bbox": "^7.1.0",
     "@turf/centroid": "^7.1.0",
     "fuse.js": "^7.0.0",
@@ -18,7 +31,13 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.14",
+    "@types/node": "^22.13.8",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "astro": "^5.4.1",
+    "copyfiles": "^2.4.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "typescript": "^5.8.2"
   }
 }
