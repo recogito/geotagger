@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
-import { useSharedPluginState, type PluginInstallationConfig } from '@components/Plugins';
+import { Plugin } from '@recogito/studio-sdk';
+import { useSharedPluginState } from '@components/Plugins';
 import type { Gazetteer } from '../Types';
 import { createCoreDataGazetteer, createGeoJSONGazetteer, createWHGazetteer, createWikidataGazetteer } from './gazetteers';
 
-export const useGazetteer = (plugin: PluginInstallationConfig): Gazetteer | undefined => {
+export const useGazetteer = (plugin: Plugin, settings: any): Gazetteer | undefined => {
 
-  const { state, setState } = useSharedPluginState<{ gazetteer?: Gazetteer }>(plugin.meta.id);
+  const { state, setState } = useSharedPluginState<{ gazetteer?: Gazetteer }>(plugin.name);
 
-  const datasource = plugin.settings.plugin_settings?.datasource?.type || 'wikidata';
+  const datasource = settings.plugin_settings?.datasource?.type || 'wikidata';
 
   useEffect(() => {
     const gazetteer = state?.gazetteer;
@@ -17,7 +18,7 @@ export const useGazetteer = (plugin: PluginInstallationConfig): Gazetteer | unde
 
     // No cached gazetteer - create new instance
     if (datasource === 'geojson') {
-      createGeoJSONGazetteer(plugin).then(gazetteer => setState({ gazetteer }));
+      createGeoJSONGazetteer(settings).then(gazetteer => setState({ gazetteer }));
     } else if (datasource === 'whg') {
       setState({ gazetteer: createWHGazetteer() });
     } else if (datasource === 'coredata') {

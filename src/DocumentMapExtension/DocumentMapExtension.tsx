@@ -1,6 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { Globe, X } from '@phosphor-icons/react';
 import L from 'leaflet';
+import { AnnotationToolbarExtensionProps } from '@recogito/studio-sdk';
 import { DocumentMap } from './components/DocumentMap';
 import { GeoJSONDownload } from './components/GeoJSONDownload';
 import { PNGDownload } from './components/PNGDownload';
@@ -47,7 +48,9 @@ export const DocumentMapExtension = (props: AnnotationToolbarExtensionProps) => 
             </div>
           </Dialog.Title>
 
-          <DocumentMap plugin={props.plugin} />
+          <DocumentMap 
+            plugin={props.plugin} 
+            settings={props.settings} />
 
           <Dialog.Close className="dialog-close" asChild>
             <button className="unstyled icon-only">

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'; 
 import { DownloadSimple } from '@phosphor-icons/react';
+import { Document } from '@recogito/studio-sdk';
 import { type GeoTagFeature, useGeotagFeatures } from '../../useGeotags';
-import type { DocumentWithContext } from 'src/Types';
 
 import './GeoJSONDownload.css';
 
 interface GeoJSONDownloadProps {
 
-  document: DocumentWithContext;
+  document: Document;
 
 }
 

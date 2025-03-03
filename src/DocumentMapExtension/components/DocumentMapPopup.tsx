@@ -1,5 +1,5 @@
-import type { PluginInstallationConfig } from '@components/Plugins';
 import { X } from '@phosphor-icons/react';
+import { Plugin } from '@recogito/studio-sdk';
 import { formatId } from '../../utils';
 import type { GeoTagFeature } from '../../useGeotags';
 
@@ -7,7 +7,7 @@ import './DocumentMapPopup.css';
 
 interface DocumentMapPopupProps {
 
-  plugin: PluginInstallationConfig;
+  plugin: Plugin;
 
   features: GeoTagFeature[]
 

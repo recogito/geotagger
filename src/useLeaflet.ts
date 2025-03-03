@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import type { Map } from 'leaflet';
-import type { PluginInstallationConfig } from '@components/Plugins';
+import { Plugin } from '@recogito/studio-sdk';
 
 interface LeafletProps {
 
-  plugin: PluginInstallationConfig;
+  plugin: Plugin;
+
+  settings: any;
 
   initialCenter?: number[];
 
@@ -33,8 +35,8 @@ export const useLeaflet = (props: LeafletProps) => {
     }).addTo(map);
 
     const basemap = 
-      props.plugin.settings.plugin_settings?.basemap ||
-      props.plugin.meta.options.basemap_presets[0];
+      props.settings.plugin_settings?.basemap ||
+      props.plugin.options.basemap_presets[0];
 
     L.tileLayer(basemap.url, {
       crossOrigin: 'anonymous',

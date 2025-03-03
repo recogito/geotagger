@@ -1,5 +1,5 @@
 import { Warning } from '@phosphor-icons/react';
-import type { PluginInstallationConfig } from '@components/Plugins';
+import { Plugin } from '@recogito/studio-sdk';
 import type { GeoJSONFeature } from '../../Types';
 import { formatId } from '../../utils';
 
@@ -7,7 +7,7 @@ import './ResultCard.css';
 
 interface ResultCardProps {
 
-  config: PluginInstallationConfig;
+  plugin: Plugin;
 
   result: GeoJSONFeature;
 
@@ -31,7 +31,7 @@ export const ResultCard = (props: ResultCardProps) => {
 
       <span className="identifier">
         <a className="source-link" href={props.result.id} target="_blank">
-          {formatId(props.result.id, props.config)}
+          {formatId(props.result.id, props.plugin)}
         </a>
       </span>
       

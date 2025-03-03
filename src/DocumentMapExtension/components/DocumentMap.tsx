@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import L from 'leaflet';
 import bbox from '@turf/bbox';
-import type { PluginInstallationConfig } from '@components/Plugins';
+import { Plugin } from '@recogito/studio-sdk';
 import { DocumentMapPopup } from './DocumentMapPopup';
 import { createPopup } from '../../utils';
 import { useGeotagFeatures, type GeoTagFeature } from '../../useGeotags';
@@ -11,7 +11,9 @@ import './DocumentMap.css';
 
 interface DocumentMapProps {
 
-  plugin: PluginInstallationConfig;
+  plugin: Plugin;
+
+  settings: any;
 
 }
 
@@ -19,7 +21,12 @@ export const DocumentMap = (props: DocumentMapProps) => {
 
   const geotags = useGeotagFeatures();
 
-  const { ref, map } = useLeaflet({ plugin: props.plugin, initialCenter: [0, 0], initialZoom: 2 });
+  const { ref, map } = useLeaflet({ 
+    plugin: props.plugin, 
+    settings: props.settings, 
+    initialCenter: [0, 0], 
+    initialZoom: 2 
+  });
 
   useEffect(() => {
     if (!map || !geotags || geotags.length === 0) return;

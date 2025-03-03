@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDebounce } from 'use-debounce';
+import { SupabaseAnnotation } from '@recogito/studio-sdk';
+import { Spinner } from '@recogito/studio-sdk/components';
 import { MagnifyingGlass, Trash } from '@phosphor-icons/react';
-import { Spinner } from '@components/Spinner';
 import type { Gazetteer, GeoJSONFeature } from '../../Types';
 import { useGeoAnnotations } from '../../useGeotags';
 
@@ -34,7 +35,7 @@ export const QuickSearch = (props: QuickSearchProps) => {
   const annotations = useGeoAnnotations();
 
   const findPreviousMatch = (query: string) => {
-    const previous = annotations.find(a => { 
+    const previous: SupabaseAnnotation | undefined = annotations.find(a => { 
       const selector = Array.isArray(a.target.selector) ? a.target.selector[0] : a.target.selector;
       return query === selector.quote;
     });

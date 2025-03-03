@@ -1,5 +1,5 @@
-import type { PluginInstallationConfig } from '@components/Plugins';
 import { Flag, Question, Trash } from '@phosphor-icons/react';
+import { Plugin } from '@recogito/studio-sdk';
 import type { User } from '@annotorious/react';
 import { PlaceDetailsFooter } from './PlaceDetailsFooter';
 import { PlaceDetailsActions } from './PlaceDetailsActions';
@@ -10,7 +10,7 @@ import './PlaceDetails.css';
 
 interface PlaceDetailsProps {
 
-  config: PluginInstallationConfig;
+  plugin: Plugin;
 
   geotag?: GeoTag;
 
@@ -53,7 +53,7 @@ export const PlaceDetails = (props: PlaceDetailsProps) => {
           <h3>{feature.properties.title}</h3>
           <p>
             <a className="source-link" href={feature.id} target="_blank">
-              {formatId(feature.id, props.config)}
+              {formatId(feature.id, props.plugin)}
             </a>
           </p>
           <p className="description">

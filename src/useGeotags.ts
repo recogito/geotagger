@@ -1,5 +1,5 @@
 import { useAnnotations } from '@annotorious/react';
-import type { SupabaseAnnotation } from '@recogito/annotorious-supabase';
+import { SupabaseAnnotation } from '@recogito/studio-sdk';
 import { useMemo } from 'react';
 import type { GeoJSONFeature } from './Types';
 

@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import L from 'leaflet';
-import type { PluginInstallationConfig } from '@components/Plugins';
+import { Plugin } from '@recogito/studio-sdk';
 
-export const formatId = (id: string, config: PluginInstallationConfig) => {
+export const formatId = (id: string, plugin: Plugin) => {
 
-  const format = Object.entries(config.meta.options.formats)
+  const format = Object.entries(plugin.options.formats)
     .find(([key, ]) => id.includes(key));
 
   if (!format)

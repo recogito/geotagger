@@ -1,4 +1,4 @@
-import type { PluginInstallationConfig } from '@components/Plugins';
+import { Plugin } from '@recogito/studio-sdk';
 import { X } from '@phosphor-icons/react';
 import { formatId } from '../../utils';
 import type { GeoJSONFeature } from '../../Types';
@@ -7,7 +7,7 @@ import './ResultMapPopup.css';
 
 interface ResultMapPopupProps {
 
-  config: PluginInstallationConfig;
+  plugin: Plugin;
 
   result: GeoJSONFeature;
 
@@ -35,7 +35,7 @@ export const ResultMapPopup = (props: ResultMapPopupProps) => {
 
       <p className="identifier">
         <a className="source-link" href={props.result.id} target="_blank">
-          {formatId(props.result.id, props.config)}
+          {formatId(props.result.id, props.plugin)}
         </a>
       </p>
       
