@@ -14,7 +14,8 @@
   ],
   "exports": {
     ".": "./dist/index.js",
-    "./GeoTaggingAdminTile": "./dist/AdminExtension/index.js"
+    "./GeoTaggingAdminTile": "./dist/AdminExtension/index.js",
+    "./EditorExtension": "./dist/EditorExtension"
   },
   "dependencies": {
     "@annotorious/react": "^3.1.4",
