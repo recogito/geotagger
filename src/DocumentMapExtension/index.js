@@ -1,3 +1,1 @@
-import { DocumentMapExtension } from './DocumentMapExtension';
-
-export default DocumentMapExtension;
+export * from './DocumentMapExtension';
