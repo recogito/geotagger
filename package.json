@@ -5,6 +5,7 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
+    "prepare": "npm run build",
     "build": "tsc && npm run copy-css",
     "copy-css": "copyfiles -u 1 \"src/**/*.css\" dist",
     "dev": "npm start --prefix .dev/"
