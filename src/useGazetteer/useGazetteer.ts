@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { Plugin } from '@recogito/studio-sdk';
-import { useSharedPluginState } from '@components/Plugins';
+import { Plugin, useSharedPluginState } from '@recogito/studio-sdk';
 import type { Gazetteer } from '../Types';
 import { createCoreDataGazetteer, createGeoJSONGazetteer, createWHGazetteer, createWikidataGazetteer } from './gazetteers';
 
