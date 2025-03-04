@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { PluginRegistry, ExtensionMount } from '../plugins';
+
+const extensions = PluginRegistry.enumerateExtensions();
+---
+
+<Layout>
+  <h1>Recogito Extensions Test Page</h1>
+
+  <main>
+    <h2>Registered Extensions: {extensions.length}</h2>
+    <ul>
+      {extensions.map(({ extension, plugin }) => ( 
+        <li>
+          <h3>{extension.module_name}/{extension.name}</h3>
+          <p>Extends: {extension.extension_point}</p>
+          <div class="extension-container">
+            <ExtensionMount 
+              client:only="react"
+              extension={extension} 
+              plugin={plugin} />
+          </div>
+        </li>
+      ))}
+    </ul>
+  </main> 
+</Layout>
+
+<style>
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0.25rem;
+  }
+
+  li {
+    max-width: 600px;
+  }
+
+  .extension-container {
+    border: 1px solid #c2c2c2;
+    border-radius: 0.25rem;
+    margin: 0.5rem 0;
+    padding: 0.25rem;
+  }
+</style>

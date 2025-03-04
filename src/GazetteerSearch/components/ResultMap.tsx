@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import L from 'leaflet';
 import bbox from '@turf/bbox';
-import type { PluginInstallationConfig } from '@components/Plugins';
+import { Plugin } from '@recogito/studio-sdk';
 import { ResultMapPopup } from './ResultMapPopup';
 import { useLeaflet } from '../../useLeaflet';
 import { createPopup } from '../../utils';
@@ -11,7 +11,9 @@ import './ResultMap.css';
 
 interface ResultMapProps {
 
-  config: PluginInstallationConfig;
+  plugin: Plugin;
+
+  settings: any;
 
   results: GeoJSONFeature[];
 
@@ -29,7 +31,8 @@ export const ResultMap = (props: ResultMapProps) => {
   }, []);
 
   const { ref, map } = useLeaflet({
-    plugin: props.config,
+    plugin: props.plugin,
+    settings: props.settings,
     initialCenter,
     initialZoom
   });
@@ -56,7 +59,7 @@ export const ResultMap = (props: ResultMapProps) => {
 
       const popup = createPopup(
         <ResultMapPopup 
-          config={props.config} 
+          plugin={props.plugin} 
           result={feature} 
           onClose={() => popup.close()}
           onConfirm={() => props.onConfirm(feature)} />

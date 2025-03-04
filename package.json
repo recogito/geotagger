@@ -1,15 +1,32 @@
 {
   "name": "@recogito/plugin-geotagging",
-  "version": "0.0.2",
-  "description": "A geo-tagging plugin for the Recogito annotation interface",
-  "main": "src/index.js",
+  "version": "0.1.0",
+  "description": "A geo-tagging plugin for Recogito Studio",
+  "type": "module",
+  "main": "src/index.ts",
   "scripts": {
-    "build": "vite build"
+    "build": "tsc && npm run copy-css",
+    "copy-css": "copyfiles -u 1 \"src/**/*.css\" dist",
+    "dev": "npm start --prefix .dev/"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./GeoTaggingAdminTile": "./dist/AdminExtension/index.js",
+    "./EditorExtension": "./dist/EditorExtension"
   },
   "dependencies": {
-    "@turf/bbox": "^7.1.0",
-    "@turf/centroid": "^7.1.0",
-    "fuse.js": "^7.0.0",
+    "@annotorious/react": "^3.1.4",
+    "@phosphor-icons/react": "^2.1.7",
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-dropdown-menu": "^2.1.6",
+    "@radix-ui/react-select": "^2.1.6",
+    "@recogito/studio-sdk": "^0.3.1",
+    "@turf/bbox": "^7.2.0",
+    "@turf/centroid": "^7.2.0",
+    "fuse.js": "^7.1.0",
     "html2canvas": "^1.4.1",
     "leaflet": "^1.9.4",
     "typesense": "^1.8.2",
@@ -17,8 +34,14 @@
     "wikibase-sdk": "^10.2.1"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.9.14",
+    "@types/leaflet": "^1.9.16",
+    "@types/node": "^22.13.9",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "astro": "^5.4.2",
+    "copyfiles": "^2.4.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "typescript": "^5.8.2"
   }
 }

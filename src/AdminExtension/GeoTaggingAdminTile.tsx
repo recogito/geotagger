@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { AdminExtensionProps } from '@components/Plugins';
+import { AdminExtensionProps } from '@recogito/studio-sdk';
 import { DataSourceSelector } from './components/DataSourceSelector';
 import type { BasemapConfig, DataSource } from '../Types';
 
@@ -7,15 +7,15 @@ import './GeoTaggingAdminTile.css';
 
 export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
 
-  const { plugin_settings } = props.plugin.settings;
+  const { settings } = props;
 
   const basemapURL = useRef<HTMLInputElement>(null);
 
-  const [datasource, setDatasource] = useState<DataSource | undefined>(plugin_settings?.datasource);
+  const [datasource, setDatasource] = useState<DataSource | undefined>(settings?.datasource);
 
   const [basemap, setBasemap] = useState<BasemapConfig>(
-    plugin_settings?.basemap ||
-    props.plugin.meta.options.basemap_presets[0]
+    settings?.basemap ||
+    props.plugin.options.basemap_presets[0]
   );
 
   useEffect(() => {
@@ -24,9 +24,9 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
   }, [basemap]);
 
   const hasChanges =
-    datasource?.id !== plugin_settings?.datasource?.id ||
-    datasource?.url !== plugin_settings?.datasource?.url ||
-    basemap.url !== plugin_settings?.basemap?.url; 
+    datasource?.id !== settings?.datasource?.id ||
+    datasource?.url !== settings?.datasource?.url ||
+    basemap.url !== settings?.basemap?.url; 
 
   const onSave = () => {
     if (datasource)
@@ -42,7 +42,7 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
 
         <div>
           <DataSourceSelector
-            config={props.plugin.meta}
+            config={props.plugin}
             value={datasource}
             onChange={setDatasource} /> 
         </div>
@@ -75,7 +75,7 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
         <p>Basemap</p>
 
         <ul>
-          {(props.plugin.meta.options.basemap_presets || []).map((preset: BasemapConfig) => (
+          {(props.plugin.options.basemap_presets || []).map((preset: BasemapConfig) => (
             <li key={preset.name}>
               <input 
                 type="radio" 

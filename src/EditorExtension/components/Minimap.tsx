@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
-import type { PluginInstallationConfig } from '@components/Plugins';
+import { Plugin } from '@recogito/studio-sdk';
 import type { GeoTag } from '../../Types';
 
 import './Minimap.css';
@@ -9,7 +9,9 @@ interface MinimapProps {
 
   geotag?: GeoTag;
 
-  plugin: PluginInstallationConfig;
+  plugin: Plugin;
+
+  settings: any;
 
 }
 
@@ -34,8 +36,8 @@ export const Minimap = (props: MinimapProps) => {
       zoomControl: false 
     }).setView([lat, lon], zoom);
 
-    const basemap = props.plugin.settings.plugin_settings?.basemap?.url 
-      || props.plugin.meta.options.basemap_presets[0].url;
+    const basemap = props.settings.plugin_settings?.basemap?.url 
+      || props.plugin.options.basemap_presets[0].url;
 
     L.tileLayer(basemap)
       .addTo(map);

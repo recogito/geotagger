@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
+import { AnnotationEditorExtensionProps, SupabaseAnnotation } from '@recogito/studio-sdk';
 import { createBody } from '@annotorious/react';
 import L from 'leaflet';
-import type { SupabaseAnnotation } from '@recogito/annotorious-supabase';
-import type { AnnotationEditorExtensionProps } from '@components/Plugins/ExtensionProps';
 import { AddGeoTag } from './components/AddGeoTag';
 import { Minimap } from './components/Minimap';
 import { QuickSearch } from './components/QuickSearch';
@@ -22,9 +21,9 @@ import shadowUrl from '../../assets/marker-shadow.png';
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: iconRetinaUrl.src,
-  iconUrl: iconUrl.src,
-  shadowUrl: shadowUrl.src
+  iconRetinaUrl: iconRetinaUrl,
+  iconUrl: iconUrl,
+  shadowUrl: shadowUrl
 });
 
 const getQuote = (a: SupabaseAnnotation): string | undefined => {
@@ -36,13 +35,13 @@ const getQuote = (a: SupabaseAnnotation): string | undefined => {
 
 export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
 
-  const { annotation, plugin } = props;
+  const { annotation, plugin, settings } = props;
 
   const quote = getQuote(annotation);
 
   const [query, setQuery] = useState(quote);
 
-  const gazetteer = useGazetteer(plugin);
+  const gazetteer = useGazetteer(plugin, settings);
   
   const [geotag, setGeotag] = useState<GeoTag | undefined>();
 
@@ -142,10 +141,11 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
         <div className="place-details-wrapper">
           <Minimap 
             geotag={geotag}
-            plugin={plugin} />
+            plugin={plugin} 
+            settings={settings} />
 
           <PlaceDetails 
-            config={plugin}
+            plugin={plugin}
             geotag={geotag} 
             me={props.me}
             onConfirm={onConfirm}
@@ -157,7 +157,8 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
 
       {showAdvancedSearch && (
         <GazetteerSearch 
-          config={plugin}
+          plugin={plugin}
+          settings={settings}
           gazetteer={gazetteer!}
           initialQuery={query}
           onClose={() => setShowAdvancedSearch(false)} 

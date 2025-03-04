@@ -1,11 +1,10 @@
 import Fuse from 'fuse.js';
-import type { PluginInstallationConfig } from '@components/Plugins';
 import type { Gazetteer, GeoJSONFeature } from '../../Types';
 
 export const createGeoJSONGazetteer = (
-  plugin: PluginInstallationConfig
+  settings: any
 ): Promise<Gazetteer> => 
-  fetch(plugin.settings.plugin_settings.datasource.url)
+  fetch(settings.plugin_settings.datasource.url)
     .then(res => res.json())
     .then(data => {
       const features = data.features.map((f: any) => {

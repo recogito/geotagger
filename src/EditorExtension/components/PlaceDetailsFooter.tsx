@@ -1,5 +1,3 @@
-import { Avatar } from '@components/Avatar';
-import { Timestamp } from '@components/Timestamp';
 import type { GeoTag } from '../../Types';
 
 import './PlaceDetailsFooter.css';

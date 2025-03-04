@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import centroid from '@turf/centroid';
+import { Plugin } from '@recogito/studio-sdk';
+import { Spinner } from '@recogito/studio-sdk/components';
 import { ListDashes, MagnifyingGlass, X } from '@phosphor-icons/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useDebounce } from 'use-debounce';
-import type { PluginInstallationConfig } from '@components/Plugins';
-import { Spinner } from '@components/Spinner';
 import { ResultCard } from './components/ResultCard';
 import { ResultMap } from './components/ResultMap';
 import type { Gazetteer, GeoJSONFeature } from '../Types';
@@ -13,7 +13,9 @@ import './GazetteerSearch.css';
 
 interface GazetteerSearchProps {
 
-  config: PluginInstallationConfig;
+  plugin: Plugin;
+  
+  settings: any;
 
   gazetteer: Gazetteer;
 
@@ -105,7 +107,7 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
                 {!searching && results.map(result => (
                   <li key={result.id}>
                     <ResultCard
-                      config={props.config}
+                      plugin={props.plugin}
                       result={result}
                       onClick={() => onSelect(result)} />
                   </li>
@@ -115,7 +117,8 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
 
             <div className="results-map">
               <ResultMap 
-                config={props.config}
+                plugin={props.plugin}
+                settings={props.settings}
                 results={results} 
                 onConfirm={onSelect} />
             </div>

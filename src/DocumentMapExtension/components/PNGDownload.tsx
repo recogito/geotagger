@@ -1,10 +1,10 @@
 import { Camera } from '@phosphor-icons/react';
+import { Document } from '@recogito/studio-sdk';
 import html2canvas from 'html2canvas';
-import type { DocumentInTaggedContext } from 'src/Types';
 
 interface PNGDownloadProps {
 
-  document: DocumentInTaggedContext;
+  document: Document;
 
 }
 
