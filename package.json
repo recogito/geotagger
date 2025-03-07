@@ -11,7 +11,8 @@
     "dev": "npm start --prefix .dev/"
   },
   "files": [
-    "dist"
+    "dist",
+    "src/assets"
   ],
   "exports": {
     ".": "./dist/index.js",
