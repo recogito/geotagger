@@ -21,9 +21,12 @@ import shadowUrl from '../assets/marker-shadow.png';
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: iconRetinaUrl,
-  iconUrl: iconUrl,
-  shadowUrl: shadowUrl
+  // @ts-ignore
+  iconRetinaUrl: iconRetinaUrl.src,
+  // @ts-ignore
+  iconUrl: iconUrl.src,
+  // @ts-ignore
+  shadowUrl: shadowUrl.src
 });
 
 const getQuote = (a: SupabaseAnnotation): string | undefined => {
