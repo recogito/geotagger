@@ -6,13 +6,12 @@
   "main": "src/index.ts",
   "scripts": {
     "prepare": "npm run build",
-    "build": "tsc && npm run copy-css",
-    "copy-css": "copyfiles -u 1 \"src/**/*.css\" dist",
+    "build": "tsc && npm run copy-assets",
+    "copy-assets": "copyfiles -u 1 \"src/**/*.css\" \"src/assets/**/*\" dist",
     "dev": "npm start --prefix .dev/"
   },
   "files": [
-    "dist",
-    "src/assets"
+    "dist"
   ],
   "exports": {
     ".": "./dist/index.js",
@@ -34,6 +33,7 @@
     "leaflet": "^1.9.4",
     "typesense": "^1.8.2",
     "use-debounce": "^10.0.4",
+    "vite-plugin-static-copy": "^2.3.0",
     "wikibase-sdk": "^10.2.1"
   },
   "devDependencies": {
