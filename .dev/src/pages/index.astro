@@ -9,15 +9,11 @@ const getTestData = (extensionPoint: string) => (fixtures as any)[extensionPoint
 ---
 
 <Layout>
-  <h1>Recogito Extensions Test Page</h1>
-
   <main>
-    <h2>Registered Extensions: {extensions.length}</h2>
     <ul>
       {extensions.map(({ extension, plugin }) => ( 
         <li>
-          <h3>{extension.module_name}/{extension.name}</h3>
-          <p>Extends: {extension.extension_point}</p>
+          <code>{extension.extension_point}</code>
           <div class="extension-container">
             <ExtensionMount 
               client:only="react"
@@ -35,17 +31,24 @@ const getTestData = (extensionPoint: string) => (fixtures as any)[extensionPoint
   ul {
     list-style-type: none;
     margin: 0;
-    padding: 0.25rem;
+    padding: 0 0 2rem 0;
   }
 
   li {
+    margin-top: 2rem;
     max-width: 600px;
   }
 
+  li code {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
   .extension-container {
-    border: 1px solid #c2c2c2;
+    background-color: #fff;
+    box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.18);
     border-radius: 0.25rem;
     margin: 0.5rem 0;
-    padding: 0.25rem;
+    overflow: hidden;
   }
 </style>
