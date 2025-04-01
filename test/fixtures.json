@@ -1,0 +1,116 @@
+{
+  "annotation:*:annotation-editor": {
+    "me": {
+      "id": "024c48d1-d2cd-421b-af0f-b2f2d0dfeaf7",
+      "nickname": "aboutgeo",
+      "last_name": "Simon",
+      "avatar_url": "",
+      "first_name": "Rainer"
+    },
+    "annotation": {
+      "id": "389ecadb-6793-4a6e-800d-c05a02370afa",
+      "layer_id": "69617dca-29c9-4582-afb3-bc9a4514eeaf",
+      "is_private": false,
+      "targets": [
+        {
+          "value": "{\"type\":\"POLYGON\",\"geometry\":{\"bounds\":{\"minX\":1736.006437900139,\"minY\":12088.671161640668,\"maxX\":2088.0755407943147,\"maxY\":12210.426177620784},\"points\":[[1757.738626731816,12176.710335113681],[1757.0089015009912,12155.461245092374],[1767.0755075024124,12150.601293032714],[1780.912987527269,12151.087687741521],[1802.736562633804,12141.37896970175],[1811.3600312062463,12151.573549779874],[1805.0139285784064,12170.182000543442],[1811.449653010224,12187.189294630725],[1803.6023518738616,12201.463131633567],[1809.6612119590877,12210.426177620784],[1839.8646254889184,12182.94744004976],[1834.4373128113616,12163.191292144931],[1844.2643502758497,12141.606952656293],[2074.1213060642017,12132.935144240102],[2088.0755407943147,12089.245913061124],[1836.9487208369296,12088.671161640668],[1828.9552016607918,12119.897835113681],[1826.071523571304,12113.60340151993],[1806.4264707481511,12101.020859794078],[1786.7023163624974,12105.964307947488],[1759.9228752225831,12101.215817180442],[1746.1526448426114,12122.918276342374],[1736.006437900139,12131.54733795459],[1737.1611342779806,12163.885961001464],[1737.1611342779806,12163.885961001464],[1737.1611342779806,12163.885961001464]]},\"source\":\"https://ids.lib.harvard.edu/ids/iiif/24146534/info.json\"}",
+          "version": 1,
+          "created_at": "2025-03-20T16:38:06.259458+00:00",
+          "created_by": {
+            "id": "024c48d1-d2cd-421b-af0f-b2f2d0dfeaf7",
+            "nickname": "aboutgeo",
+            "last_name": "Simon",
+            "avatar_url": "",
+            "first_name": "Rainer"
+          },
+          "updated_at": "2025-03-20T16:38:04.767+00:00",
+          "updated_by": {
+            "id": "024c48d1-d2cd-421b-af0f-b2f2d0dfeaf7",
+            "nickname": "aboutgeo",
+            "last_name": "Simon",
+            "avatar_url": "",
+            "first_name": "Rainer"
+          },
+          "annotation_id": "389ecadb-6793-4a6e-800d-c05a02370afa"
+        }
+      ],
+      "bodies": [
+        {
+          "id": "9207acfb-906e-4ed4-b7ce-7b2e595cb9d1",
+          "value": "place: ancient",
+          "format": null,
+          "purpose": "tagging",
+          "version": 1,
+          "created_at": "2025-03-20T16:39:30.950684+00:00",
+          "created_by": {
+            "id": "024c48d1-d2cd-421b-af0f-b2f2d0dfeaf7",
+            "nickname": "aboutgeo",
+            "last_name": "Simon",
+            "avatar_url": "",
+            "first_name": "Rainer"
+          },
+          "updated_at": "2025-03-20T16:39:30.193+00:00",
+          "updated_by": {
+            "id": "024c48d1-d2cd-421b-af0f-b2f2d0dfeaf7",
+            "nickname": "aboutgeo",
+            "last_name": "Simon",
+            "avatar_url": "",
+            "first_name": "Rainer"
+          },
+          "annotation_id": "389ecadb-6793-4a6e-800d-c05a02370afa"
+        },
+        {
+          "id": "bb4d41e4-19e9-46cf-93d3-7325717f0c1a",
+          "value": "{\"id\":\"http://www.wikidata.org/entity/Q28721684\",\"properties\":{\"title\":\"Salamis\",\"description\":\"ancient city on Salamis island\"},\"geometry\":{\"type\":\"Point\",\"coordinates\":[23.54083333,37.9525]}}",
+          "format": null,
+          "purpose": "geotagging",
+          "version": 1,
+          "created_at": "2025-03-20T16:41:02.914189+00:00",
+          "created_by": {
+            "id": "024c48d1-d2cd-421b-af0f-b2f2d0dfeaf7",
+            "nickname": "aboutgeo",
+            "last_name": "Simon",
+            "avatar_url": "",
+            "first_name": "Rainer"
+          },
+          "updated_at": "2025-03-20T16:41:01.913+00:00",
+          "updated_by": {
+            "id": "024c48d1-d2cd-421b-af0f-b2f2d0dfeaf7",
+            "nickname": "aboutgeo",
+            "last_name": "Simon",
+            "avatar_url": "",
+            "first_name": "Rainer"
+          },
+          "annotation_id": "389ecadb-6793-4a6e-800d-c05a02370afa"
+        },
+        {
+          "id": "f269eef3-7afc-43de-853a-b29f23cc7848",
+          "value": "{\"ops\":[{\"insert\":\"ΣΑΛΑΜΙΣ / SALAMIS\\n\"}]}",
+          "format": "Quill",
+          "purpose": "commenting",
+          "version": 1,
+          "created_at": "2025-03-20T16:41:06.403734+00:00",
+          "created_by": {
+            "id": "024c48d1-d2cd-421b-af0f-b2f2d0dfeaf7",
+            "nickname": "aboutgeo",
+            "last_name": "Simon",
+            "avatar_url": "",
+            "first_name": "Rainer"
+          },
+          "updated_at": "2025-03-20T16:41:05.486+00:00",
+          "updated_by": {
+            "id": "024c48d1-d2cd-421b-af0f-b2f2d0dfeaf7",
+            "nickname": "aboutgeo",
+            "last_name": "Simon",
+            "avatar_url": "",
+            "first_name": "Rainer"
+          },
+          "annotation_id": "389ecadb-6793-4a6e-800d-c05a02370afa"
+        }
+      ]
+    },
+    "settings": {
+      "my": "settings"
+    }
+  }
+}

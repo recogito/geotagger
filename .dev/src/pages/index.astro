@@ -1,8 +1,11 @@
 ---
+import fixtures from '../../../test/fixtures.json';
 import Layout from '../layouts/Layout.astro';
 import { PluginRegistry, ExtensionMount } from '../plugins';
 
 const extensions = PluginRegistry.enumerateExtensions();
+
+const getTestData = (extensionPoint: string) => (fixtures as any)[extensionPoint] || {};
 ---
 
 <Layout>
@@ -19,7 +22,8 @@ const extensions = PluginRegistry.enumerateExtensions();
             <ExtensionMount 
               client:only="react"
               extension={extension} 
-              plugin={plugin} />
+              plugin={plugin} 
+              {...getTestData(extension.extension_point)} />
           </div>
         </li>
       ))}

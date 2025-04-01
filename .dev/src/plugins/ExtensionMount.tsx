@@ -1,5 +1,5 @@
 import { Component, lazy, Suspense, useMemo } from 'react';
-import type { Extension } from '@recogito/studio-sdk';
+import { PluginProvider, type Extension } from '@recogito/studio-sdk';
 
 interface PluginMountProps {
 
@@ -49,9 +49,12 @@ export const ExtensionMount = <T extends PluginMountProps = PluginMountProps>(pr
   
   return (
     <PluginErrorBoundary>
-      <Suspense fallback={fallback}>
-        <Component {...rest} />
-      </Suspense>
+      {/* The plugin provide will provide a dummy shared state! */}
+      <PluginProvider installed={[]}>
+        <Suspense fallback={fallback}>
+          <Component {...rest} />
+        </Suspense>
+      </PluginProvider>
     </PluginErrorBoundary>
   );
 
