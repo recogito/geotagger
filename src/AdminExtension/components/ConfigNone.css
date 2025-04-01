@@ -1,3 +1,12 @@
 .out-gtp-admin-gazetteer-config-none {
+  align-items: center;
   color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2rem;
+}
+
+.out-gtp-admin-gazetteer-config-none button.danger {
+  gap: 0.25rem;
 }

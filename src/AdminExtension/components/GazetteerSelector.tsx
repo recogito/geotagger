@@ -15,6 +15,12 @@ interface GazetteerSelectorProps {
 
 }
 
+const TITLES: { [key: string]: string } = {
+  wikidata: 'Wikidata',
+  whg: 'World Historical Gazetteer',
+  coredata: 'Core Data'
+}
+
 export const GazetteerSelector = (props: GazetteerSelectorProps) => {
 
   const [open, setOpen] = useState(false);
@@ -33,6 +39,7 @@ export const GazetteerSelector = (props: GazetteerSelectorProps) => {
     } else {
       props.onSelect({
         id: value,
+        name: TITLES[value],
         type: value as 'coredata' | 'wikidata' | 'whg' | 'geojson'
       });
     }

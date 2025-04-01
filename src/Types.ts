@@ -48,7 +48,7 @@ export interface DataSource {
 
   id: string;
 
-  name?: string;
+  name: string;
 
   type: 'coredata' | 'geojson' | 'whg' | 'wikidata';
 

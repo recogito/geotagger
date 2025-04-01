@@ -50,3 +50,4 @@ button.add-gazetteer > svg {
 .dialog-content.ou-gtp-gazetteer-selector [cmdk-item][data-selected='true'] {
   background-color: var(--gray-100);
 }
+

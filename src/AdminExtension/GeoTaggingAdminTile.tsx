@@ -1,10 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, HTMLAttributes, useEffect, useRef, useState } from 'react';
+import { CaretDown } from '@phosphor-icons/react';
 import { AdminExtensionProps } from '@recogito/studio-sdk';
 import * as Accordion from '@radix-ui/react-accordion';
 import { GazetteerSelector } from './components/GazetteerSelector';
 import type { BasemapConfig, DataSource } from '../Types';
 
 import './GeoTaggingAdminTile.css';
+import { ConfigCustomGeoJSON } from './components/ConfigCustomGeoJSON';
+import { ConfigNone } from './components/ConfigNone';
+
+const AccordionTrigger = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButtonElement>>((props, forwardedRef) => (
+		<Accordion.Header className="accordion-header">
+			<Accordion.Trigger
+				className="accordion-trigger"
+				{...props}
+				ref={forwardedRef}>
+				{props.children}
+				<CaretDown className="accordion-chevron" aria-hidden />
+			</Accordion.Trigger>
+		</Accordion.Header>
+	)
+)
 
 export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
 
@@ -31,6 +47,12 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
   const onAddGazetteer = (gazetteer: DataSource) => 
     setGazetteers(current => current.some(g => g.id === gazetteer.id) ? current : ([...current, gazetteer]));
 
+  const onUpdateConfig = (gazetteer: DataSource) => 
+    setGazetteers(current => current.map(g => g.id === gazetteer.id ? gazetteer : g));
+
+  const onRemoveGazetteer = (gazetteer: DataSource) => 
+    setGazetteers(current => current.filter(g => g.id !== gazetteer.id));
+
   const onSave = () => {
     if (gazetteers.length > 0)
       props.onChangeUserSettings({ gazetteers, basemap });
@@ -38,7 +60,7 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
 
   return (
     <div className="ou-gtp-admin">
-      <div className="ou-gtp-admin-gazetteers">
+      <section className="ou-gtp-admin-gazetteers">
         <h3>
           Gazetteers
         </h3>
@@ -60,20 +82,27 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
                 key={g.id}
                 value={g.id}
                 className="accordion-item">
-                <Accordion.AccordionTrigger className="accordion-trigger">
-                  {JSON.stringify(g)}
-                </Accordion.AccordionTrigger>
+                <AccordionTrigger>
+                  <button className="unstyled">{g.name}</button>
+                </AccordionTrigger>
 
                 <Accordion.AccordionContent className="accordion-content">
-                  Foo
+                  {g.type === 'geojson' ? (
+                    <ConfigCustomGeoJSON 
+                      gazetteer={g} 
+                      onChange={onUpdateConfig} />
+                  ) : (
+                    <ConfigNone 
+                      onRemove={() => onRemoveGazetteer(g)} />
+                  )}
                 </Accordion.AccordionContent>
               </Accordion.AccordionItem>
             ))}
           </Accordion.Root>
         )}
-      </div>
+      </section>
 
-      <div className="ou-gtp-admin-basemap">
+      <section className="ou-gtp-admin-basemap">
         <h3>
           Basemap
         </h3>
@@ -115,7 +144,7 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
               disabled={Boolean(basemap.name)} />
           </li>
         </ul>
-      </div>
+      </section>
 
       <div>
         <button 
