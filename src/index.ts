@@ -60,7 +60,7 @@ const GeoTaggerPlugin: Plugin = {
     },
     geojson_presets: [{
       preset_id: 'pleiades',
-      preset_name: 'Pleiades (GeoJSON)', 
+      preset_name: 'Pleiades', 
       file_url: 'https://raw.githubusercontent.com/recogito/geotagger/main/gazetteers/pleiades-all-places.lp.json'
     }],
     core_data_config: {

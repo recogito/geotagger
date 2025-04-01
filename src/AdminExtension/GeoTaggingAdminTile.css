@@ -2,46 +2,44 @@
   padding: 1rem;
 }
 
-.ou-gtp-admin label {
-  display: inline-block;
-  padding: 0.4em 2px;
+.ou-gtp-admin div + div {
+  margin-top: 3rem;
 }
 
-.ou-gtp-admin .out-gtp-setting {
-  margin-bottom: 2em;
+.ou-gtp-admin h3 {
+  padding: 0;
+  margin: 0.25rem 0;
 }
 
-.ou-gtp-admin .out-gtp-setting input[type="text"] {
-  width: 100%;
-}
-
-.ou-gtp-admin .out-gtp-setting .hint {
+.ou-gtp-admin p {
   color: var(--font-light);
-  font-size: var(--font-tiny);
-  line-height: 150%;
-  max-width: 50ch;
+  font-size: var(--font-small);
+  margin: 0;
+  padding: 0 0 0.5rem 0;
 }
 
-.ou-gtp-admin .out-gtp-setting.basemap-setting ul {
+.ou-gtp-admin .ou-gtp-admin-basemap ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.ou-gtp-admin .out-gtp-setting.basemap-setting li {
+.ou-gtp-admin .ou-gtp-admin-basemap li {
   align-items: center;
   display: flex;
-  gap: 0.3em;
+  font-size: var(--font-small);
+  gap: 0.5em;
+  margin: 0.5rem 0;
   white-space: nowrap;
 }
 
-.ou-gtp-admin .out-gtp-setting.basemap-setting input {
+.ou-gtp-admin .ou-gtp-admin-basemap input {
   display: block;
   margin: 0 0 0.1em 0.1em;
   padding: 0;
 }
 
-.ou-gtp-admin .out-gtp-setting.basemap-setting input[type="text"] {
+.ou-gtp-admin .ou-gtp-admin-basemap input[type="text"] {
   flex-grow: 1;
   padding: 6px;
 }

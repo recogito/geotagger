@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AdminExtensionProps } from '@recogito/studio-sdk';
-import { DataSourceSelector } from './components/DataSourceSelector';
+import * as Accordion from '@radix-ui/react-accordion';
+import { GazetteerSelector } from './components/GazetteerSelector';
 import type { BasemapConfig, DataSource } from '../Types';
 
 import './GeoTaggingAdminTile.css';
@@ -11,7 +12,7 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
 
   const basemapURL = useRef<HTMLInputElement>(null);
 
-  const [datasource, setDatasource] = useState<DataSource | undefined>(settings?.datasource);
+  const [gazetteers, setGazetteers] = useState<DataSource[]>(settings?.datasources || []);
 
   const [basemap, setBasemap] = useState<BasemapConfig>(
     settings?.basemap ||
@@ -24,55 +25,62 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
   }, [basemap]);
 
   const hasChanges =
-    datasource?.id !== settings?.datasource?.id ||
-    datasource?.url !== settings?.datasource?.url ||
+    gazetteers.map(g => g.id).join(':') !== (settings?.datasources || []).map((g: DataSource) => g.id).join(':') ||
     basemap.url !== settings?.basemap?.url; 
 
+  const onAddGazetteer = (gazetteer: DataSource) => 
+    setGazetteers(current => current.some(g => g.id === gazetteer.id) ? current : ([...current, gazetteer]));
+
   const onSave = () => {
-    if (datasource)
-      props.onChangeUserSettings({ datasource, basemap });
+    if (gazetteers.length > 0)
+      props.onChangeUserSettings({ gazetteers, basemap });
   }
 
   return (
     <div className="ou-gtp-admin">
-      <div className="out-gtp-setting">
-        <label>
-          Select a data source
-        </label>
+      <div className="ou-gtp-admin-gazetteers">
+        <h3>
+          Gazetteers
+        </h3>
 
-        <div>
-          <DataSourceSelector
-            config={props.plugin}
-            value={datasource}
-            onChange={setDatasource} /> 
-        </div>
+        <p>
+          Choose at least one gazetteer for this project.
+        </p>
+
+        <GazetteerSelector 
+          plugin={props.plugin}
+          onSelect={onAddGazetteer} />
+
+        {gazetteers.length > 0 && (
+          <Accordion.Root
+            className="accordion-root"
+            type="multiple">
+            {gazetteers.map(g => (
+              <Accordion.AccordionItem 
+                key={g.id}
+                value={g.id}
+                className="accordion-item">
+                <Accordion.AccordionTrigger className="accordion-trigger">
+                  {JSON.stringify(g)}
+                </Accordion.AccordionTrigger>
+
+                <Accordion.AccordionContent className="accordion-content">
+                  Foo
+                </Accordion.AccordionContent>
+              </Accordion.AccordionItem>
+            ))}
+          </Accordion.Root>
+        )}
       </div>
 
-      {datasource?.type === 'geojson' && (
-        <div className="out-gtp-setting">
-          <label>GeoJSON File URL</label>
-
-          <div>
-            <input
-              type="text"
-              disabled={Boolean(datasource.name)}
-              value={datasource.url || ''} 
-              onChange={evt => setDatasource(source => ({ ...source!, url: evt.target.value }))} />
-          </div>
-
-          <p className="hint">
-            GeoJSON file must adhere to 
-            the <a 
-              href="https://github.com/LinkedPasts/linked-places-format" 
-              target="_blank">Linked Places format</a>. Please keep 
-            size below 5 MB and 40.000 places. Larger 
-            files will load slowly and may negatively impact user experience.
-          </p>
-        </div>
-      )}
-
-      <div className="out-gtp-setting basemap-setting">
-        <p>Basemap</p>
+      <div className="ou-gtp-admin-basemap">
+        <h3>
+          Basemap
+        </h3>
+        
+        <p>
+          Select a basemap to use for the annotation widget, gazetteer search and overview map.
+        </p>
 
         <ul>
           {(props.plugin.options.basemap_presets || []).map((preset: BasemapConfig) => (

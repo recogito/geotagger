@@ -11,13 +11,19 @@ import '@recogito/studio-sdk/style.css';
 		<title>Recogito Studio Plugin Test</title>
 	</head>
 	<body>
-		<slot />
+		<div class="container">
+			<slot />
+		</div>
 	</body>
 </html>
 
 <style>
-	html,
-	body {
+	html, body {
+		margin: 0;
+		padding: 0;
+	}
+	
+	.container {
 		background-color: #f2f2f2;
 		box-sizing: border-box;
 		font-family:Arial, Helvetica, sans-serif;
