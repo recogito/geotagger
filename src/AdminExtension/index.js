@@ -1,1 +1,1 @@
-export * from './GeoTaggingAdminTile';
+export * from './GeoTaggerAdminExtension';

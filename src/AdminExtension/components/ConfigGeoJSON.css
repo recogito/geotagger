@@ -1,0 +1,31 @@
+.ou-gtp-admin-gazetteer-config-geojson {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 1rem 2rem 1rem;
+}
+
+.ou-gtp-admin-gazetteer-config-geojson .geojson-url {
+  display: flex;
+  font-size: var(--font-small);
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.ou-gtp-admin-gazetteer-config-geojson .geojson-url label {
+  font-weight: 500;
+}
+
+.ou-gtp-admin-gazetteer-config-geojson .geojson-url input:disabled {
+  cursor: not-allowed;
+}
+
+.ou-gtp-admin-gazetteer-config-geojson .hint {
+  margin-top: 1rem;
+  padding: 0.125rem;
+}
+
+.ou-gtp-admin-gazetteer-config-geojson button.danger {
+  gap: 0.25rem;
+  align-self: center;
+}

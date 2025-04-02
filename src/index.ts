@@ -14,7 +14,7 @@ const GeoTaggerPlugin: Plugin = {
   extensions: [{
     name: 'geotagger-admin',
     module_name: '@recogito/plugin-geotagging',
-    component_name: 'GeoTaggingAdminTile',
+    component_name: 'GeoTaggerAdminExtension',
     extension_point: 'admin'
   },{
     name: 'geotagger-editor',

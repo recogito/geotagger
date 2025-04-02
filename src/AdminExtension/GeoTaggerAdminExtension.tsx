@@ -2,12 +2,10 @@ import { forwardRef, HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { CaretDown } from '@phosphor-icons/react';
 import { AdminExtensionProps } from '@recogito/studio-sdk';
 import * as Accordion from '@radix-ui/react-accordion';
-import { GazetteerSelector } from './components/GazetteerSelector';
+import { ConfigGeoJSON, ConfigNone, GazetteerSelector } from './components';
 import type { BasemapConfig, DataSource } from '../Types';
 
-import './GeoTaggingAdminTile.css';
-import { ConfigCustomGeoJSON } from './components/ConfigCustomGeoJSON';
-import { ConfigNone } from './components/ConfigNone';
+import './GeoTaggerAdminExtension.css';
 
 const AccordionTrigger = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButtonElement>>((props, forwardedRef) => (
 		<Accordion.Header className="accordion-header">
@@ -22,7 +20,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButton
 	)
 )
 
-export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
+export const GeoTaggerAdminExtension = (props: AdminExtensionProps) => {
 
   const { settings } = props;
 
@@ -58,6 +56,12 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
       props.onChangeUserSettings({ gazetteers, basemap });
   }
 
+  const getName = (g: DataSource) => {
+    if (g.name) return g.name;
+    // Simple for now...
+    else return 'Custom GeoJSON';
+  }
+
   return (
     <div className="ou-gtp-admin">
       <section className="ou-gtp-admin-gazetteers">
@@ -83,14 +87,15 @@ export const GeoTaggingAdminTile = (props: AdminExtensionProps) => {
                 value={g.id}
                 className="accordion-item">
                 <AccordionTrigger>
-                  <button className="unstyled">{g.name}</button>
+                  <button className="unstyled">{getName(g)}</button>
                 </AccordionTrigger>
 
                 <Accordion.AccordionContent className="accordion-content">
                   {g.type === 'geojson' ? (
-                    <ConfigCustomGeoJSON 
+                    <ConfigGeoJSON 
                       gazetteer={g} 
-                      onChange={onUpdateConfig} />
+                      onChange={onUpdateConfig} 
+                      onRemove={() => onRemoveGazetteer(g)} />
                   ) : (
                     <ConfigNone 
                       onRemove={() => onRemoveGazetteer(g)} />
