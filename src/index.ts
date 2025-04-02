@@ -11,22 +11,22 @@ const GeoTaggerPlugin: Plugin = {
 
   homepage: 'https://pelagios.org',
 
-  extensions: [/*{
+  extensions: [{
     name: 'geotagger-admin',
     module_name: '@recogito/plugin-geotagging',
     component_name: 'AdminExtension',
     extension_point: 'admin'
-  },*/{
+  },{
     name: 'geotagger-editor',
     module_name: '@recogito/plugin-geotagging',
     component_name: 'EditorExtension',
     extension_point: 'annotation:*:annotation-editor'
-  }/*,{
+  },{
     name: 'geotagger-editor',
     module_name: '@recogito/plugin-geotagging',
     component_name: 'DocumentMapExtension',
     extension_point: 'annotation:*:toolbar'
-  }*/],
+  }],
 
   options: {
     basemap_presets: [
