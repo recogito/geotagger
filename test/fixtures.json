@@ -110,7 +110,24 @@
       ]
     },
     "settings": {
-      "my": "settings"
+      "gazetteers": [
+          {
+              "id": "wikidata",
+              "name": "Wikidata",
+              "type": "wikidata"
+          },
+          {
+              "id": "pleiades",
+              "name": "Pleiades",
+              "type": "geojson",
+              "url": "https://raw.githubusercontent.com/recogito/geotagger/main/gazetteers/pleiades-all-places.lp.json"
+          }
+      ],
+      "basemap": {
+          "name": "OpenStreetMap",
+          "attribution": "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>",
+          "url": "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ import { Minimap } from './components/Minimap';
 import { QuickSearch } from './components/QuickSearch';
 import { PlaceDetails } from './components/PlaceDetails';
 import { GazetteerSearch } from '../GazetteerSearch';
-import type { GeoTag, GeoJSONFeature } from '../Types';
+import type { GeoTag, GeoJSONFeature, GeoTaggerInstanceSettings } from '../Types';
 import { useGazetteer } from '../useGazetteer';
 
 import './EditorExtension.css';
@@ -36,7 +36,9 @@ const getQuote = (a: SupabaseAnnotation): string | undefined => {
   return selector?.quote;
 }
 
-export const EditorExtension = (props: AnnotationEditorExtensionProps) => {
+export const EditorExtension = (props: AnnotationEditorExtensionProps<GeoTaggerInstanceSettings>) => {
+
+  console.log('props', props);
 
   const { annotation, plugin, settings } = props;
 

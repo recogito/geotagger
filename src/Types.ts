@@ -56,6 +56,14 @@ export interface DataSource {
 
 }
 
+export interface GeoTaggerInstanceSettings {
+
+  gazetteers: DataSource[];
+
+  basemap: BasemapConfig;
+
+}
+
 export interface GeoJSONGazetteerPreset {
 
   preset_id: string;

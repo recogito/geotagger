@@ -3,7 +3,7 @@ import { CaretDown } from '@phosphor-icons/react';
 import { AdminExtensionProps } from '@recogito/studio-sdk';
 import * as Accordion from '@radix-ui/react-accordion';
 import { ConfigGeoJSON, ConfigNone, GazetteerSelector } from './components';
-import type { BasemapConfig, DataSource } from '../Types';
+import type { BasemapConfig, DataSource, GeoTaggerInstanceSettings } from '../Types';
 
 import './AdminExtension.css';
 
@@ -20,13 +20,13 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButton
 	)
 )
 
-export const AdminExtension = (props: AdminExtensionProps) => {
+export const AdminExtension = (props: AdminExtensionProps<GeoTaggerInstanceSettings>) => {
 
   const { settings } = props;
 
   const basemapURL = useRef<HTMLInputElement>(null);
 
-  const [gazetteers, setGazetteers] = useState<DataSource[]>(settings?.datasources || []);
+  const [gazetteers, setGazetteers] = useState<DataSource[]>(settings?.gazetteers || []);
 
   const [basemap, setBasemap] = useState<BasemapConfig>(
     settings?.basemap ||
@@ -39,7 +39,7 @@ export const AdminExtension = (props: AdminExtensionProps) => {
   }, [basemap]);
 
   const hasChanges =
-    gazetteers.map(g => g.id).join(':') !== (settings?.datasources || []).map((g: DataSource) => g.id).join(':') ||
+    gazetteers.map(g => g.id).join(':') !== (settings?.gazetteers || []).map((g: DataSource) => g.id).join(':') ||
     basemap.url !== settings?.basemap?.url; 
 
   const onAddGazetteer = (gazetteer: DataSource) => 
@@ -52,8 +52,10 @@ export const AdminExtension = (props: AdminExtensionProps) => {
     setGazetteers(current => current.filter(g => g.id !== gazetteer.id));
 
   const onSave = () => {
-    if (gazetteers.length > 0)
+    if (gazetteers.length > 0) {
+      console.log({ gazetteers, basemap });
       props.onChangeUserSettings({ gazetteers, basemap });
+    }
   }
 
   const getName = (g: DataSource) => {
@@ -87,7 +89,7 @@ export const AdminExtension = (props: AdminExtensionProps) => {
                 value={g.id}
                 className="accordion-item">
                 <AccordionTrigger>
-                  <button className="unstyled">{getName(g)}</button>
+                  {getName(g)}
                 </AccordionTrigger>
 
                 <Accordion.AccordionContent className="accordion-content">
