@@ -76,7 +76,7 @@ export const AdminExtension = (props: AdminExtensionProps<GeoTaggerInstanceSetti
 
         {gazetteers.length === 0 ? (
           <p className="error">
-            You must choose at least one gazetteer for your project.
+            You must add at least one gazetteer.
           </p>
         ) : (
           <Accordion.Root
@@ -118,7 +118,7 @@ export const AdminExtension = (props: AdminExtensionProps<GeoTaggerInstanceSetti
         </h3>
         
         <p>
-          Select a basemap to use for the annotation widget, gazetteer search and overview map.
+          Select a basemap for the annotation widget, search and overview map.
         </p>
 
         <ul>

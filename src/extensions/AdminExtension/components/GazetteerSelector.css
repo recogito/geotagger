@@ -1,17 +1,31 @@
 button.add-gazetteer {
   align-items: center;
-  border-color: var(--link-color);
-  color: var(--link-color);
   display: flex;
   font-size: var(--font-tiny);
   font-weight: 400;
   height: auto;
-  padding: 0.5rem 0.75rem;
+  padding: 0.125rem;
+}
+
+button.add-gazetteer:hover {
+  color: var(--link-color);
+}
+
+button.add-gazetteer.unstyled:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+button.add-gazetteer:hover span {
+  text-decoration: underline;
 }
 
 button.add-gazetteer > svg {
-  color: var(--link-blue);
   margin-right: 0.25rem;
+}
+
+button.add-gazetteer.unstyled:hover > svg {
+  color: var(--link-color);
 }
 
 .dialog-content.ou-gtp-gazetteer-selector {

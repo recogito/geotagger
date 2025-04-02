@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Command } from 'cmdk';
 import { Plugin } from '@recogito/studio-sdk';
-import { Plus } from '@phosphor-icons/react';
+import { PlusCircle } from '@phosphor-icons/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { DataSource, GeoJSONGazetteerPreset } from 'src/Types';
 
@@ -52,8 +52,8 @@ export const GazetteerSelector = (props: GazetteerSelectorProps) => {
       open={open}
       onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <button className="add-gazetteer">
-          <Plus /> <span>Add Gazetteer</span>
+        <button className="add-gazetteer unstyled">
+          <PlusCircle size={18} /> <span>Add Gazetteer</span>
         </button>
       </Dialog.Trigger>
 
