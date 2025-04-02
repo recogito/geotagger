@@ -18,8 +18,8 @@
   "exports": {
     ".": "./dist/index.js",
     "./AdminExtension": "./dist/AdminExtension/index.js",
-    "./EditorExtension": "./src/EditorExtension/index.js",
-    "./DocumentMapExtension": "./dist/DocumentMapExtension/index.js"
+    "./EditorExtension": "./dist/EditorExtension/index.js",
+    "./DocumentMapExtension": "./src/DocumentMapExtension/index.js"
   },
   "dependencies": {
     "@annotorious/react": "^3.3.3",

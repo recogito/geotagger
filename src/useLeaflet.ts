@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import type { Map } from 'leaflet';
 import { Plugin } from '@recogito/studio-sdk';
+import { GeoTaggerInstanceSettings } from './Types';
 
 interface LeafletProps {
 
   plugin: Plugin;
 
-  settings: any;
+  settings: GeoTaggerInstanceSettings;
 
   initialCenter?: number[];
 
@@ -35,7 +36,7 @@ export const useLeaflet = (props: LeafletProps) => {
     }).addTo(map);
 
     const basemap = 
-      props.settings.plugin_settings?.basemap ||
+      props.settings?.basemap ||
       props.plugin.options.basemap_presets[0];
 
     L.tileLayer(basemap.url, {

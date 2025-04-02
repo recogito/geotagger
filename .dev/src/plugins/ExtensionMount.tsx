@@ -52,7 +52,7 @@ export const ExtensionMount = <T extends PluginMountProps = PluginMountProps>(pr
       {/* The plugin provide will provide a dummy shared state! */}
       <PluginProvider installed={[]}>
         <Suspense fallback={fallback}>
-          <Component {...rest} />
+          <Component extension={extension} {...rest} />
         </Suspense>
       </PluginProvider>
     </PluginErrorBoundary>
