@@ -2,8 +2,8 @@
   padding: 1rem;
 }
 
-.ou-gtp-admin section + section {
-  margin-top: 3rem;
+.ou-gtp-admin section {
+  margin-bottom: 1.5rem;
 }
 
 .ou-gtp-admin h3 {
@@ -11,7 +11,12 @@
   margin: 0.25rem 0;
 }
 
+.ou-gtp-admin .accordion-root {
+  margin-bottom: 1rem;
+}
+
 .ou-gtp-admin h3.accordion-header {
+  background-color: var(--gray-50);
   margin: 0;
 }
 
@@ -24,7 +29,11 @@
   color: var(--font-light);
   font-size: var(--font-small);
   margin: 0;
-  padding: 0 0 0.5rem 0;
+  padding: 0.25rem 0 0.25rem 0;
+}
+
+.ou-gtp-admin p.error {
+  color: var(--red-500);
 }
 
 .ou-gtp-admin .accordion-root {
@@ -33,6 +42,7 @@
 }
 
 .ou-gtp-admin .accordion-item {
+  background-color: #fff;
   width: 100%;
 }
 

@@ -17,7 +17,7 @@
   ],
   "exports": {
     ".": "./dist/index.js",
-    "./AdminExtension": "./dist/extensions/AdminExtension/index.js",
+    "./AdminExtension": "./src/extensions/AdminExtension/index.js",
     "./EditorExtension": "./dist/extensions/EditorExtension/index.js",
     "./DocumentMapExtension": "./src/extensions/DocumentMapExtension/index.js"
   },

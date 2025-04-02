@@ -1,5 +1,5 @@
 import { forwardRef, HTMLAttributes, useEffect, useRef, useState } from 'react';
-import { CaretDown } from '@phosphor-icons/react';
+import { Gear } from '@phosphor-icons/react';
 import { AdminExtensionProps } from '@recogito/studio-sdk';
 import * as Accordion from '@radix-ui/react-accordion';
 import { ConfigGeoJSON, ConfigNone, GazetteerSelector } from './components';
@@ -14,7 +14,10 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButton
 				{...props}
 				ref={forwardedRef}>
 				{props.children}
-				<CaretDown className="accordion-chevron" aria-hidden />
+				<Gear 
+          className="accordion-chevron" 
+          aria-hidden 
+          size={19} />
 			</Accordion.Trigger>
 		</Accordion.Header>
 	)
@@ -71,15 +74,11 @@ export const AdminExtension = (props: AdminExtensionProps<GeoTaggerInstanceSetti
           Gazetteers
         </h3>
 
-        <p>
-          Choose at least one gazetteer for this project.
-        </p>
-
-        <GazetteerSelector 
-          plugin={props.plugin}
-          onSelect={onAddGazetteer} />
-
-        {gazetteers.length > 0 && (
+        {gazetteers.length === 0 ? (
+          <p className="error">
+            You must choose at least one gazetteer for your project.
+          </p>
+        ) : (
           <Accordion.Root
             className="accordion-root"
             type="multiple">
@@ -107,6 +106,10 @@ export const AdminExtension = (props: AdminExtensionProps<GeoTaggerInstanceSetti
             ))}
           </Accordion.Root>
         )}
+
+        <GazetteerSelector 
+          plugin={props.plugin}
+          onSelect={onAddGazetteer} />
       </section>
 
       <section className="ou-gtp-admin-basemap">
