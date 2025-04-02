@@ -22,7 +22,7 @@ export const DocumentMapPopup = (props: DocumentMapPopupProps) => {
   const quotes = props.features.map(f => f.properties.quote).filter(Boolean);
 
   return (
-    <div className="ou-gtp-document-map-popup">
+    <div className="ou-gtp-document-map-popup not-annotatable">
       <div className="close">
         <button 
           className="unstyled icon-only"

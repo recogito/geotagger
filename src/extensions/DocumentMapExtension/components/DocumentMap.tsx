@@ -76,7 +76,7 @@ export const DocumentMap = (props: DocumentMapProps) => {
   }, [geotags, map]);
 
   return (
-    <div ref={ref} className="ou-gtp-document-map">
+    <div ref={ref} className="ou-gtp-document-map not-annotatable">
     </div>
   )
 
