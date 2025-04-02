@@ -1,5 +1,5 @@
 import { WBK } from 'wikibase-sdk';
-import type { GazetteerSearch, GeoJSONFeature } from '../../../../Types';
+import type { GazetteerSearchable, GeoJSONFeature } from '../../../../Types';
 
 const parseWKTPoint = (wkt?: string) => {
   if (!wkt) return;
@@ -15,7 +15,7 @@ const parseWKTPoint = (wkt?: string) => {
   }
 }
  
-export const createWikidataGazetteer = (): GazetteerSearch => {
+export const createWikidataGazetteer = (): GazetteerSearchable => {
 
   const wd = WBK({
     instance: 'https://www.wikidata.org',
@@ -26,7 +26,7 @@ export const createWikidataGazetteer = (): GazetteerSearch => {
     const lang = 'en'; // Could make this configurable in the future
     
     const sparql = `
-      SELECT ?item ?itemLabel ?description ?coordinates WHERE {
+      SELECT DISTINCT ?item ?itemLabel ?description ?coordinates WHERE {
         VALUES ?plabel { "${query.toLowerCase()}" }
         
         SERVICE wikibase:mwapi {
@@ -55,8 +55,7 @@ export const createWikidataGazetteer = (): GazetteerSearch => {
 
     return fetch(url)
       .then(response => response.json())
-      // @ts-ignore
-      .then(data => data.results.bindings.map(result => {
+      .then(data => (data.results.bindings as any[]).map((result: any) => {
         const { item, itemLabel, description } = result;
         
         const coordinates = parseWKTPoint(result.coordinates?.value);
@@ -71,7 +70,7 @@ export const createWikidataGazetteer = (): GazetteerSearch => {
             type: 'Point',
             coordinates
           } : undefined
-        }
+        } as GeoJSONFeature;
       }));
   }
 

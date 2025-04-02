@@ -5,20 +5,20 @@ import {
   createGeoJSONGazetteer, 
   createWHGazetteer, 
   createWikidataGazetteer 
-} from './gazetteers';
+} from './connectors';
 import type { 
-  CrossGazetteerSearch, 
-  DataSource, 
-  GazetteerSearch, 
+  CrossGazetteerSearchable, 
+  GazetteerDefinition, 
+  GazetteerSearchable, 
   GeoTaggerInstanceSettings 
 } from '../../../Types';
 
 export const useGazetteerSearch = (
   plugin: Plugin, 
   settings?: GeoTaggerInstanceSettings
-): CrossGazetteerSearch | undefined => {
+): CrossGazetteerSearchable | undefined => {
 
-  const { state, setState } = useSharedPluginState<CrossGazetteerSearch | undefined>(plugin.name);
+  const { state, setState } = useSharedPluginState<CrossGazetteerSearchable | undefined>(plugin.name);
 
   const datasources = settings?.gazetteers || [{ type: 'wikidata' }];
 
@@ -40,7 +40,7 @@ export const useGazetteerSearch = (
         return Promise.resolve({ source, gazetteer: createCoreDataGazetteer(plugin) });
       else if (source.type === 'wikidata')
         return Promise.resolve({ source, gazetteer: createWikidataGazetteer() });
-    })).then(g => g.filter(Boolean)) as Promise<{ source: DataSource, gazetteer: GazetteerSearch }[]>;
+    })).then(g => g.filter(Boolean)) as Promise<{ source: GazetteerDefinition, gazetteer: GazetteerSearchable }[]>;
 
     gazetteers.then(gazetteers => {
       // Cross-gazetteer search

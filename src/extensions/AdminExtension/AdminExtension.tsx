@@ -3,7 +3,7 @@ import { Gear } from '@phosphor-icons/react';
 import { AdminExtensionProps } from '@recogito/studio-sdk';
 import * as Accordion from '@radix-ui/react-accordion';
 import { ConfigGeoJSON, ConfigNone, GazetteerSelector } from './components';
-import type { BasemapConfig, DataSource, GeoTaggerInstanceSettings } from '../../Types';
+import type { BasemapConfig, GazetteerDefinition, GeoTaggerInstanceSettings } from '../../Types';
 
 import './AdminExtension.css';
 
@@ -29,7 +29,7 @@ export const AdminExtension = (props: AdminExtensionProps<GeoTaggerInstanceSetti
 
   const basemapURL = useRef<HTMLInputElement>(null);
 
-  const [gazetteers, setGazetteers] = useState<DataSource[]>(settings?.gazetteers || []);
+  const [gazetteers, setGazetteers] = useState<GazetteerDefinition[]>(settings?.gazetteers || []);
 
   const [basemap, setBasemap] = useState<BasemapConfig>(
     settings?.basemap ||
@@ -42,16 +42,16 @@ export const AdminExtension = (props: AdminExtensionProps<GeoTaggerInstanceSetti
   }, [basemap]);
 
   const hasChanges =
-    gazetteers.map(g => g.id).join(':') !== (settings?.gazetteers || []).map((g: DataSource) => g.id).join(':') ||
+    gazetteers.map(g => g.id).join(':') !== (settings?.gazetteers || []).map((g: GazetteerDefinition) => g.id).join(':') ||
     basemap.url !== settings?.basemap?.url; 
 
-  const onAddGazetteer = (gazetteer: DataSource) => 
+  const onAddGazetteer = (gazetteer: GazetteerDefinition) => 
     setGazetteers(current => current.some(g => g.id === gazetteer.id) ? current : ([...current, gazetteer]));
 
-  const onUpdateConfig = (gazetteer: DataSource) => 
+  const onUpdateConfig = (gazetteer: GazetteerDefinition) => 
     setGazetteers(current => current.map(g => g.id === gazetteer.id ? gazetteer : g));
 
-  const onRemoveGazetteer = (gazetteer: DataSource) => 
+  const onRemoveGazetteer = (gazetteer: GazetteerDefinition) => 
     setGazetteers(current => current.filter(g => g.id !== gazetteer.id));
 
   const onSave = () => {
@@ -61,7 +61,7 @@ export const AdminExtension = (props: AdminExtensionProps<GeoTaggerInstanceSetti
     }
   }
 
-  const getName = (g: DataSource) => {
+  const getName = (g: GazetteerDefinition) => {
     if (g.name) return g.name;
     // Simple for now...
     else return 'Custom GeoJSON';

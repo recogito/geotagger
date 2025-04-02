@@ -1,6 +1,6 @@
-import type { GazetteerSearch, GeoJSONFeature } from '../../../../Types';
+import type { GazetteerSearchable, GeoJSONFeature } from '../../../../Types';
 
-export const createWHGazetteer = (): GazetteerSearch => {
+export const createWHGazetteer = (): GazetteerSearchable => {
 
   const search = (query: string): Promise<GeoJSONFeature[]> =>
     fetch(`https://whgazetteer.org/api/index/?name=${query}`)

@@ -3,7 +3,7 @@ import { Command } from 'cmdk';
 import { Plugin } from '@recogito/studio-sdk';
 import { PlusCircle } from '@phosphor-icons/react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { DataSource, GeoJSONGazetteerPreset } from 'src/Types';
+import { GazetteerDefinition, GeoJSONGazetteerPreset } from 'src/Types';
 
 import './GazetteerSelector.css';
 
@@ -11,7 +11,7 @@ interface GazetteerSelectorProps {
 
   plugin: Plugin;
 
-  onSelect(value: DataSource): void;
+  onSelect(value: GazetteerDefinition): void;
 
 }
 

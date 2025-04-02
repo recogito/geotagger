@@ -1,13 +1,13 @@
 import { Trash } from '@phosphor-icons/react';
-import { DataSource } from 'src/Types';
+import { GazetteerDefinition } from 'src/Types';
 
 import './ConfigGeoJSON.css';
 
 interface ConfigGeoJSONProps {
 
-  gazetteer: DataSource;
+  gazetteer: GazetteerDefinition;
 
-  onChange(gazetteer: DataSource): void;
+  onChange(gazetteer: GazetteerDefinition): void;
 
   onRemove(): void;
 

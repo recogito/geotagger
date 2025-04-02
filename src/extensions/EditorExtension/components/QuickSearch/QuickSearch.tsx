@@ -3,14 +3,14 @@ import { useDebounce } from 'use-debounce';
 import { SupabaseAnnotation } from '@recogito/studio-sdk';
 import { Spinner } from '@recogito/studio-sdk/components';
 import { MagnifyingGlass, Trash } from '@phosphor-icons/react';
-import type { CrossGazetteerSearch, GeoJSONFeature } from '../../../../Types';
+import type { CrossGazetteerSearchable, GeoJSONFeature } from '../../../../Types';
 import { useGeoAnnotations } from '../../../../shared/useGeotags';
 
 import './QuickSearch.css';
 
 interface QuickSearchProps {
 
-  gazetteers: CrossGazetteerSearch;
+  gazetteers: CrossGazetteerSearchable;
 
   quote?: string;
 

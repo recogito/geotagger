@@ -1,6 +1,34 @@
 import type { User } from '@annotorious/react';
 
-export interface DataSource {
+export interface GeoJSONGazetteerPreset {
+
+  preset_id: string;
+
+  preset_name: string;
+
+  file_url: string;
+
+}
+
+export interface BasemapConfig {
+
+  name?: string;
+  
+  attribution?: string; 
+
+  url: string;
+
+}
+
+export interface GeoTaggerInstanceSettings {
+
+  gazetteers: GazetteerDefinition[];
+
+  basemap: BasemapConfig;
+
+}
+
+export interface GazetteerDefinition {
 
   id: string;
 
@@ -12,13 +40,13 @@ export interface DataSource {
 
 }
 
-export interface GazetteerSearch {
+export interface GazetteerSearchable {
 
   search(query: string, limit?: number): Promise<GeoJSONFeature[]>;
 
 }
 
-export interface CrossGazetteerSearch {
+export interface CrossGazetteerSearchable {
 
   search(query: string, limitPerSource?: number, searchIn?: string[]): Promise<GeoJSONFeature[]>;
 
@@ -59,33 +87,5 @@ export interface GeoTag {
     at?: Date;
 
   }
-
-}
-
-export interface GeoTaggerInstanceSettings {
-
-  gazetteers: DataSource[];
-
-  basemap: BasemapConfig;
-
-}
-
-export interface GeoJSONGazetteerPreset {
-
-  preset_id: string;
-
-  preset_name: string;
-
-  file_url: string;
-
-}
-
-export interface BasemapConfig {
-
-  name?: string;
-  
-  attribution?: string; 
-
-  url: string;
 
 }

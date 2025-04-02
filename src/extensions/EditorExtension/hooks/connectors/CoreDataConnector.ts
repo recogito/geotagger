@@ -1,10 +1,10 @@
 import { SearchClient } from 'typesense';
 import { Plugin } from '@recogito/studio-sdk';
-import type { GazetteerSearch, GeoJSONFeature } from '../../../../Types';
+import type { GazetteerSearchable, GeoJSONFeature } from '../../../../Types';
 
 export const createCoreDataGazetteer = (
   plugin: Plugin
-): GazetteerSearch => {
+): GazetteerSearchable => {
   const config = {
     nodes: [
       {

@@ -7,7 +7,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useDebounce } from 'use-debounce';
 import { ResultCard } from './components/ResultCard';
 import { ResultMap } from './components/ResultMap';
-import type { CrossGazetteerSearch, GeoJSONFeature } from '../../../../Types';
+import type { CrossGazetteerSearchable, GeoJSONFeature } from '../../../../Types';
 
 import './GazetteerSearch.css';
 
@@ -17,7 +17,7 @@ interface GazetteerSearchProps {
   
   settings: any;
 
-  gazetteers: CrossGazetteerSearch;
+  gazetteers: CrossGazetteerSearchable;
 
   initialQuery?: string;
 
