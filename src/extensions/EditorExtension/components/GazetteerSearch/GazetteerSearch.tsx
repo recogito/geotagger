@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import centroid from '@turf/centroid';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Plugin } from '@recogito/studio-sdk';
 import { Spinner } from '@recogito/studio-sdk/components';
 import { ListDashes, MagnifyingGlass, X } from '@phosphor-icons/react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { useDebounce } from 'use-debounce';
 import { ResultCard } from './components/ResultCard';
 import { ResultMap } from './components/ResultMap';
 import type { CrossGazetteerSearchable, GeoJSONFeature } from '../../../../Types';
@@ -33,22 +33,21 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
 
   const [query, setQuery] = useState(props.initialQuery || '');
 
-  const [debounced] = useDebounce(query, 500);
-
   const [searching, setSearching] = useState(false);
 
-  const [results, setResults] = useState<GeoJSONFeature[]>([]);
+  const [results, setResults] = useState<GeoJSONFeature[] | undefined>();
 
   const onSelect = (result: GeoJSONFeature) => {
     props.onSelect(result);
     props.onClose();
   }
 
-  useEffect(() => {
-    setSearching(true);
-  }, [query]);
+  const onSearch = (evt: FormEvent) => {
+    evt.preventDefault();
 
-  useEffect(() => {
+    setSearching(true);
+    setResults(undefined);
+
     search(query, 100)
       .then(results => {
         const pointFeatures = results.map(f => {
@@ -62,8 +61,6 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
           }
         });
 
-        console.log(pointFeatures);
-
         setSearching(false);
         setResults(pointFeatures);
       })
@@ -71,7 +68,7 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
         console.error(error);
         setSearching(false);
       })
-  }, [debounced]);
+  }
 
   return (
     <Dialog.Root open={true} onOpenChange={props.onClose}>
@@ -80,19 +77,25 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
 
         <Dialog.Content 
           className="dialog-content ou-gtp-gazetteer-search not-annotatable">
+          <VisuallyHidden>
+            <Dialog.Title>Gazetteer Search</Dialog.Title>
+            <Dialog.Description>Search for a place.</Dialog.Description>
+          </VisuallyHidden>
           <div className="header">
             <div className="searchbox">
-              <input
-                type="text" 
-                placeholder="Search for a place..." 
-                value={query} 
-                onChange={evt => setQuery(evt.target.value)} />
+              <form onSubmit={onSearch}>
+                <input
+                  type="text" 
+                  placeholder="Search for a place..." 
+                  value={query} 
+                  onChange={evt => setQuery(evt.target.value)} />
 
-              {(searching && query)  ? (
-                <Spinner className="search-icon spinner" size={14} />
-              ) : (
-                <MagnifyingGlass className="search-icon" size={24} />
-              )}
+                {(searching && query)  ? (
+                  <Spinner className="search-icon spinner" size={14} />
+                ) : (
+                  <MagnifyingGlass className="search-icon" size={24} />
+                )}
+              </form>
             </div>
 
             <Dialog.Close className="unstyled icon-only">
@@ -103,10 +106,12 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
           <div className="results">
             <div className="results-list">
               <div className="totals">
-                <ListDashes size={16}   /> {results.length} Results
+                <ListDashes size={16}   /> {results && (
+                  <>{results.length} Results</>
+                )}
               </div>
               <ul>
-                {!searching && results.map(result => (
+                {(!searching && results) && results.map(result => (
                   <li key={result.id}>
                     <ResultCard
                       plugin={props.plugin}
@@ -121,7 +126,7 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
               <ResultMap 
                 plugin={props.plugin}
                 settings={props.settings}
-                results={results} 
+                results={results || []} 
                 onConfirm={onSelect} />
             </div>
           </div>    
