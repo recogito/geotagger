@@ -17,7 +17,7 @@
   ],
   "exports": {
     ".": "./dist/index.js",
-    "./GeoTaggerAdminExtension": "./src/AdminExtension/index.js",
+    "./AdminExtension": "./dist/AdminExtension/index.js",
     "./EditorExtension": "./dist/EditorExtension/index.js",
     "./DocumentMapExtension": "./dist/DocumentMapExtension/index.js"
   },

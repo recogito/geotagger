@@ -5,7 +5,7 @@ import * as Accordion from '@radix-ui/react-accordion';
 import { ConfigGeoJSON, ConfigNone, GazetteerSelector } from './components';
 import type { BasemapConfig, DataSource } from '../Types';
 
-import './GeoTaggerAdminExtension.css';
+import './AdminExtension.css';
 
 const AccordionTrigger = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButtonElement>>((props, forwardedRef) => (
 		<Accordion.Header className="accordion-header">
@@ -20,7 +20,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButton
 	)
 )
 
-export const GeoTaggerAdminExtension = (props: AdminExtensionProps) => {
+export const AdminExtension = (props: AdminExtensionProps) => {
 
   const { settings } = props;
 
