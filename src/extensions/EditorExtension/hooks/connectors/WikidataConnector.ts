@@ -55,23 +55,29 @@ export const createWikidataGazetteer = (): GazetteerSearchable => {
 
     return fetch(url)
       .then(response => response.json())
-      .then(data => (data.results.bindings as any[]).map((result: any) => {
-        const { item, itemLabel, description } = result;
-        
-        const coordinates = parseWKTPoint(result.coordinates?.value);
+      .then(data => (data.results.bindings as any[])
+        .reduce<any[]>((distinct, result) => {
+          // For reasons beyond comprehension, Wikidata results can include
+          // duplicates. (Despite the DISTINCT clause.) This filters them out.
+          const exists = distinct.some(a => a.item.value === result.item.value);
+          return exists ? distinct : [...distinct, result];
+        }, []).map(result => {
+          const { item, itemLabel, description } = result;
+          
+          const coordinates = parseWKTPoint(result.coordinates?.value);
 
-        return {
-          id: item.value,
-          properties: {
-            title: itemLabel.value,
-            description: description.value
-          },
-          geometry: coordinates ? {
-            type: 'Point',
-            coordinates
-          } : undefined
-        } as GeoJSONFeature;
-      }));
+          return {
+            id: item.value,
+            properties: {
+              title: itemLabel.value,
+              description: description.value
+            },
+            geometry: coordinates ? {
+              type: 'Point',
+              coordinates
+            } : undefined
+          } as GeoJSONFeature;
+        }));
   }
 
   return { search };

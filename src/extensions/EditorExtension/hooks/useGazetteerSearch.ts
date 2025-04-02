@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Fuse from 'fuse.js';
 import { Plugin, useSharedPluginState } from '@recogito/studio-sdk';
 import { 
   createCoreDataGazetteer, 
@@ -10,8 +11,21 @@ import type {
   CrossGazetteerSearchable, 
   GazetteerDefinition, 
   GazetteerSearchable, 
+  GeoJSONFeature, 
   GeoTaggerInstanceSettings 
 } from '../../../Types';
+
+const rerankResults = (features: GeoJSONFeature[], query: string) => {
+  const fuse = new Fuse<GeoJSONFeature>(features, { 
+    keys: [ '@id', 'properties.title', 'properties.description' ],
+    shouldSort: true,
+    includeScore: true,
+    threshold: 0.9,
+    useExtendedSearch: true
+  });
+
+  return fuse.search(query).map(r => r.item);
+}
 
 export const useGazetteerSearch = (
   plugin: Plugin, 
@@ -50,9 +64,9 @@ export const useGazetteerSearch = (
           return key ? searchIn.includes(key) : false;
         }) : gazetteers;
 
-        return Promise.all(
-          toSearch.map(({ gazetteer }) => gazetteer.search(query, limitPerSource))
-        ).then(responses => responses.flat());
+        return Promise.all(toSearch.map(({ gazetteer }) => gazetteer.search(query, limitPerSource)))
+          // Flatten and re-rank search results into a more sensible order
+          .then(responses => rerankResults(responses.flat(), query))
       }
 
       setState({ search: crossSearch });
