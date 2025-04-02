@@ -23,15 +23,11 @@ import iconRetinaUrl from '../../assets/marker-icon-2x.png';
 import iconUrl from '../../assets/marker-icon.png';
 import shadowUrl from '../../assets/marker-shadow.png';
 
-// @ts-ignore
-delete L.Icon.Default.prototype._getIconUrl;
+delete (L.Icon.Default.prototype as any)._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-  // @ts-ignore
   iconRetinaUrl: iconRetinaUrl.src,
-  // @ts-ignore
   iconUrl: iconUrl.src,
-  // @ts-ignore
   shadowUrl: shadowUrl.src
 });
 
