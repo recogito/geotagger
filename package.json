@@ -8,18 +8,18 @@
     "prepare": "npm run build",
     "build": "tsc && npm run copy-assets",
     "copy-assets": "copyfiles -u 1 \"src/**/*.css\" \"src/assets/**/*\" dist",
-    "dev:watch": "nodemon --watch src --ext ts,tsx,js,jsx,css,json --ignore dist/ --exec 'npm run build'",
-    "dev:launch": "npm start --prefix .dev/",
-    "dev": "concurrently \"npm run dev:watch\" \"npm run dev:launch\""
+    "dev": "npm start --prefix .dev/",
+    "dev:rebuild": "nodemon --watch src --ext ts,tsx,js,jsx,css,json --ignore dist/ --exec 'npm run build'",
+    "dev:watch": "concurrently \"npm run dev:rebuild\" \"npm run dev\""
   },
   "files": [
     "dist"
   ],
   "exports": {
     ".": "./dist/index.js",
-    "./AdminExtension": "./dist/AdminExtension/index.js",
-    "./EditorExtension": "./dist/EditorExtension/index.js",
-    "./DocumentMapExtension": "./src/DocumentMapExtension/index.js"
+    "./AdminExtension": "./dist/extensions/AdminExtension/index.js",
+    "./EditorExtension": "./dist/extensions/EditorExtension/index.js",
+    "./DocumentMapExtension": "./src/extensions/DocumentMapExtension/index.js"
   },
   "dependencies": {
     "@annotorious/react": "^3.3.3",

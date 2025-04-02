@@ -1,6 +1,18 @@
 import type { User } from '@annotorious/react';
 
-export interface Gazetteer {
+export interface DataSource {
+
+  id: string;
+
+  name?: string;
+
+  type: 'coredata' | 'geojson' | 'whg' | 'wikidata';
+
+  url?: string;
+
+}
+
+export interface GazetteerSearch {
 
   search(query: string, limit?: number): Promise<GeoJSONFeature[]>;
 
@@ -47,18 +59,6 @@ export interface GeoTag {
     at?: Date;
 
   }
-
-}
-
-export interface DataSource {
-
-  id: string;
-
-  name?: string;
-
-  type: 'coredata' | 'geojson' | 'whg' | 'wikidata';
-
-  url?: string;
 
 }
 
