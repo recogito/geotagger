@@ -3,7 +3,7 @@ import { Gear } from '@phosphor-icons/react';
 import { AdminExtensionProps } from '@recogito/studio-sdk';
 import * as Accordion from '@radix-ui/react-accordion';
 import { ConfigGeoJSON, ConfigNone, GazetteerSelector } from './components';
-import type { BasemapConfig, GazetteerDefinition, GeoTaggerInstanceSettings } from '../../Types';
+import type { BasemapConfig, GazetteerDefinition, GeoTaggerInstanceSettings } from 'src/Types';
 
 import './AdminExtension.css';
 

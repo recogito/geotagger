@@ -3,8 +3,8 @@ import { Plugin } from '@recogito/studio-sdk';
 import type { User } from '@annotorious/react';
 import { PlaceDetailsFooter } from './PlaceDetailsFooter';
 import { PlaceDetailsActions } from './PlaceDetailsActions';
-import type { GeoTag } from '../../../../Types';
 import { formatId } from '../../../../shared/utils';
+import type { GeoTag } from 'src/Types';
 
 import './PlaceDetails.css';
 

@@ -1,7 +1,7 @@
 import { Warning } from '@phosphor-icons/react';
 import { Plugin } from '@recogito/studio-sdk';
-import type { GeoJSONFeature } from '../../../../../Types';
 import { formatId } from '../../../../../shared/utils';
+import type { GeoJSONFeature } from 'src/Types';
 
 import './ResultCard.css';
 

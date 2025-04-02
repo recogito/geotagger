@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import type { Map } from 'leaflet';
 import { Plugin } from '@recogito/studio-sdk';
-import { GeoTaggerInstanceSettings } from '../Types';
+import { GeoTaggerInstanceSettings } from 'src/Types';
 
 interface LeafletProps {
 

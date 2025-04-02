@@ -1,7 +1,7 @@
 import { Plugin } from '@recogito/studio-sdk';
 import { X } from '@phosphor-icons/react';
 import { formatId } from '../../../../../shared/utils';
-import type { GeoJSONFeature } from '../../../../../Types';
+import type { GeoJSONFeature } from 'src/Types';
 
 import './ResultMapPopup.css';
 

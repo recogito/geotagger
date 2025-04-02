@@ -37,6 +37,15 @@
   top: 6px;
 }
 
+.ou-gtp-gazetteer-search .searchbox button.search-icon {
+  all: unset;
+  cursor: pointer;
+  color: var(--font-light);
+  position: absolute;
+  right: 8px;
+  top: 6px;
+}
+
 .ou-gtp-gazetteer-search .searchbox .search-icon.spinner {
   right: 11px;
   top: 11px;
@@ -60,14 +69,20 @@
   font-size: var(--font-small);
 }
 
+.ou-gtp-gazetteer-search .results-list-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 8px -6px rgba(0, 0, 0, 0.18);
+  display: flex;
+  justify-content: space-between;
+}
+
 .ou-gtp-gazetteer-search .results-list .totals {
   align-items: center;
   background-color: #fff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 4px 8px -6px rgba(0, 0, 0, 0.18);
   color: var(--font-light);
   display: flex;
   flex: 0 0 auto;
+  flex-grow: 1;
   font-size: var(--font-tiny);
   font-weight: 500;
   gap: 0.5em;

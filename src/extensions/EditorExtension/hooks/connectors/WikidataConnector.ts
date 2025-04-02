@@ -1,5 +1,5 @@
 import { WBK } from 'wikibase-sdk';
-import type { GazetteerSearchable, GeoJSONFeature } from '../../../../Types';
+import type { GazetteerSearchable, GeoJSONFeature } from 'src/Types';
 
 const parseWKTPoint = (wkt?: string) => {
   if (!wkt) return;

@@ -1,4 +1,4 @@
-import type { GeoTag } from '../../../../Types';
+import type { GeoTag } from 'src/Types';
 
 import './PlaceDetailsFooter.css';
 

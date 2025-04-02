@@ -1,4 +1,4 @@
-import type { GazetteerSearchable, GeoJSONFeature } from '../../../../Types';
+import type { GazetteerSearchable, GeoJSONFeature } from 'src/Types';
 
 export const createWHGazetteer = (): GazetteerSearchable => {
 

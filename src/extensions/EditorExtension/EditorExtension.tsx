@@ -7,7 +7,7 @@ import type {
   GeoTag, 
   GeoJSONFeature, 
   GeoTaggerInstanceSettings 
-} from '../../Types';
+} from 'src/Types';
 import { 
   AddGeoTag,
   GazetteerSearch,
@@ -160,7 +160,7 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps<GeoTaggerI
         </div>
       )}
 
-      {showAdvancedSearch && (
+      {(showAdvancedSearch && settings) && (
         <GazetteerSearch 
           plugin={plugin}
           settings={settings}

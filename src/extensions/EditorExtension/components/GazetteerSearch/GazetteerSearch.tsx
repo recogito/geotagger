@@ -7,15 +7,17 @@ import { ListDashes, MagnifyingGlass, X } from '@phosphor-icons/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ResultCard } from './components/ResultCard';
 import { ResultMap } from './components/ResultMap';
-import type { CrossGazetteerSearchable, GeoJSONFeature } from '../../../../Types';
+import { ResultListFilter } from './components/ResultListFilter';
+import type { CrossGazetteerSearchable, GeoJSONFeature, GeoTaggerInstanceSettings } from 'src/Types';
 
 import './GazetteerSearch.css';
+import { toEditorSettings } from 'typescript';
 
 interface GazetteerSearchProps {
 
   plugin: Plugin;
   
-  settings: any;
+  settings: GeoTaggerInstanceSettings;
 
   gazetteers: CrossGazetteerSearchable;
 
@@ -28,6 +30,10 @@ interface GazetteerSearchProps {
 }
 
 export const GazetteerSearch = (props: GazetteerSearchProps) => {
+
+  console.log('props', props);
+
+  const foo = props.settings;
 
   const { search } = props.gazetteers;
 
@@ -81,6 +87,7 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
             <Dialog.Title>Gazetteer Search</Dialog.Title>
             <Dialog.Description>Search for a place.</Dialog.Description>
           </VisuallyHidden>
+
           <div className="header">
             <div className="searchbox">
               <form onSubmit={onSearch}>
@@ -93,7 +100,9 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
                 {(searching && query)  ? (
                   <Spinner className="search-icon spinner" size={14} />
                 ) : (
-                  <MagnifyingGlass className="search-icon" size={24} />
+                  <button className="search-icon" >
+                    <MagnifyingGlass size={24} />
+                  </button>
                 )}
               </form>
             </div>
@@ -103,13 +112,19 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
             </Dialog.Close>
           </div>
         
-          <div className="results">
-            <div className="results-list">
-              <div className="totals">
-                <ListDashes size={16}   /> {results && (
-                  <>{results.length} Results</>
-                )}
-              </div>
+          <section className="results">
+            <aside className="results-list">
+              <header className="results-list-header">
+                <div className="totals">
+                  <ListDashes size={16}   /> {results && (
+                    <>{results.length} Results</>
+                  )}
+                </div>
+
+                <ResultListFilter 
+                  gazetteers={props.settings.gazetteers} />
+              </header>
+
               <ul>
                 {(!searching && results) && results.map(result => (
                   <li key={result.id}>
@@ -120,7 +135,7 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </aside>
 
             <div className="results-map">
               <ResultMap 
@@ -129,7 +144,7 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
                 results={results || []} 
                 onConfirm={onSelect} />
             </div>
-          </div>    
+          </section>    
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

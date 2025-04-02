@@ -1,7 +1,7 @@
+import { useMemo } from 'react';
 import { useAnnotations } from '@annotorious/react';
 import { SupabaseAnnotation } from '@recogito/studio-sdk';
-import { useMemo } from 'react';
-import type { GeoJSONFeature } from '../Types';
+import type { GeoJSONFeature } from 'src/Types';
 
 export interface GeoTagFeature extends GeoJSONFeature {
 

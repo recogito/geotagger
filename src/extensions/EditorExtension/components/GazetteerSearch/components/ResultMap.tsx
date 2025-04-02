@@ -5,7 +5,7 @@ import { Plugin } from '@recogito/studio-sdk';
 import { ResultMapPopup } from './ResultMapPopup';
 import { useLeaflet } from '../../../../../shared/useLeaflet';
 import { createPopup } from '../../../../../shared/utils';
-import type { GeoJSONFeature } from '../../../../../Types';
+import type { GeoJSONFeature } from 'src/Types';
 
 import './ResultMap.css';
 

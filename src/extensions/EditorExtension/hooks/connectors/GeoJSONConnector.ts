@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js';
-import type { GazetteerDefinition, GazetteerSearchable, GeoJSONFeature } from '../../../../Types';
+import type { GazetteerDefinition, GazetteerSearchable, GeoJSONFeature } from 'src/Types';
 
 export const createGeoJSONGazetteer = (source: GazetteerDefinition): Promise<GazetteerSearchable> => 
   fetch(source.url!)

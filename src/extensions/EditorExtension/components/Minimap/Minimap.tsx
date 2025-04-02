@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import { Plugin } from '@recogito/studio-sdk';
-import type { GeoTag } from '../../../../Types';
+import type { GeoTag } from 'src/Types';
 
 import './Minimap.css';
 

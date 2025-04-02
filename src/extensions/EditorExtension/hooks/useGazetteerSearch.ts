@@ -13,7 +13,7 @@ import type {
   GazetteerSearchable, 
   GeoJSONFeature, 
   GeoTaggerInstanceSettings 
-} from '../../../Types';
+} from 'src/Types';
 
 const rerankResults = (features: GeoJSONFeature[], query: string) => {
   const fuse = new Fuse<GeoJSONFeature>(features, { 
