@@ -8,7 +8,7 @@ import { QuickSearch } from './components/QuickSearch';
 import { PlaceDetails } from './components/PlaceDetails';
 import { GazetteerSearch } from '../GazetteerSearch';
 import type { GeoTag, GeoJSONFeature, GeoTaggerInstanceSettings } from '../Types';
-import { useGazetteer } from '../useGazetteer';
+import { useGazetteers } from '../useGazetteer';
 
 import './EditorExtension.css';
 import 'leaflet/dist/leaflet.css';
@@ -38,15 +38,13 @@ const getQuote = (a: SupabaseAnnotation): string | undefined => {
 
 export const EditorExtension = (props: AnnotationEditorExtensionProps<GeoTaggerInstanceSettings>) => {
 
-  console.log('props', props);
-
   const { annotation, plugin, settings } = props;
 
   const quote = getQuote(annotation);
 
   const [query, setQuery] = useState(quote);
 
-  const gazetteer = useGazetteer(plugin, settings);
+  const search = useGazetteers(plugin, settings);
   
   const [geotag, setGeotag] = useState<GeoTag | undefined>();
 
@@ -131,11 +129,11 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps<GeoTaggerI
     }
   }, [annotation]);
 
-  return (geotag || (showQuickSearch && gazetteer)) ? (
+  return (geotag || (showQuickSearch && search)) ? (
     <div className="ou-gtp-editor-ext">
       {(showQuickSearch && !geotag) && (
         <QuickSearch 
-          gazetteer={gazetteer!} 
+          gazetteers={search!} 
           quote={quote} 
           onChangeQuery={setQuery}
           onDelete={onDelete}
@@ -164,7 +162,7 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps<GeoTaggerI
         <GazetteerSearch 
           plugin={plugin}
           settings={settings}
-          gazetteer={gazetteer!}
+          gazetteers={search!}
           initialQuery={query}
           onClose={() => setShowAdvancedSearch(false)} 
           onSelect={onChange}/>
@@ -172,7 +170,7 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps<GeoTaggerI
     </div>
   ) : (isNewAnnotation || props.isEditable) ? (
     <AddGeoTag 
-      initializing={!gazetteer}
+      initializing={!search}
       onClick={() => setShowQuickSearch(true)} />
   ) : null;
 

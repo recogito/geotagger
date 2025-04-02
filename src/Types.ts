@@ -6,6 +6,12 @@ export interface Gazetteer {
 
 }
 
+export interface CrossGazetteerSearch {
+
+  search(query: string, limitPerSource?: number, searchIn?: string[]): Promise<GeoJSONFeature[]>;
+
+}
+
 export interface GeoJSONFeature {
 
   id: string;

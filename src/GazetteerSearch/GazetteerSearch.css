@@ -7,11 +7,16 @@
 }
 
 .ou-gtp-gazetteer-search .header {
+  align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   flex: 0 0 auto;
   justify-content: space-between;
   padding: 6px 12px 6px 6px;
+}
+
+.ou-gtp-gazetteer-search .header button.unstyled.icon-only svg {
+  padding: 0;
 }
 
 .ou-gtp-gazetteer-search .searchbox {

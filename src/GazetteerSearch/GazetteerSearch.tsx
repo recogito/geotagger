@@ -7,9 +7,10 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useDebounce } from 'use-debounce';
 import { ResultCard } from './components/ResultCard';
 import { ResultMap } from './components/ResultMap';
-import type { Gazetteer, GeoJSONFeature } from '../Types';
+import type { CrossGazetteerSearch, GeoJSONFeature } from '../Types';
 
 import './GazetteerSearch.css';
+import { point } from 'leaflet';
 
 interface GazetteerSearchProps {
 
@@ -17,7 +18,7 @@ interface GazetteerSearchProps {
   
   settings: any;
 
-  gazetteer: Gazetteer;
+  gazetteers: CrossGazetteerSearch;
 
   initialQuery?: string;
 
@@ -29,7 +30,7 @@ interface GazetteerSearchProps {
 
 export const GazetteerSearch = (props: GazetteerSearchProps) => {
 
-  const { search } = props.gazetteer;
+  const { search } = props.gazetteers;
 
   const [query, setQuery] = useState(props.initialQuery || '');
 
@@ -61,6 +62,8 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
             return { ...f, geometry };
           }
         });
+
+        console.log(pointFeatures);
 
         setSearching(false);
         setResults(pointFeatures);

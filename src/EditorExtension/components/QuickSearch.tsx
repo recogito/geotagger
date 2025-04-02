@@ -3,14 +3,14 @@ import { useDebounce } from 'use-debounce';
 import { SupabaseAnnotation } from '@recogito/studio-sdk';
 import { Spinner } from '@recogito/studio-sdk/components';
 import { MagnifyingGlass, Trash } from '@phosphor-icons/react';
-import type { Gazetteer, GeoJSONFeature } from '../../Types';
+import type { CrossGazetteerSearch, GeoJSONFeature } from '../../Types';
 import { useGeoAnnotations } from '../../useGeotags';
 
 import './QuickSearch.css';
 
 interface QuickSearchProps {
 
-  gazetteer: Gazetteer;
+  gazetteers: CrossGazetteerSearch;
 
   quote?: string;
 
@@ -63,7 +63,7 @@ export const QuickSearch = (props: QuickSearchProps) => {
         setSearching(false);
         props.onSearchResponse(previous);
       } else {
-        props.gazetteer.search(debounced, 1)
+        props.gazetteers.search(debounced, 1)
           .then(results => {
             setSearching(false);
 

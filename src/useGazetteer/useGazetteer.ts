@@ -1,32 +1,64 @@
 import { useEffect } from 'react';
 import { Plugin, useSharedPluginState } from '@recogito/studio-sdk';
-import type { Gazetteer } from '../Types';
-import { createCoreDataGazetteer, createGeoJSONGazetteer, createWHGazetteer, createWikidataGazetteer } from './gazetteers';
+import { 
+  createCoreDataGazetteer, 
+  createGeoJSONGazetteer, 
+  createWHGazetteer, 
+  createWikidataGazetteer 
+} from './gazetteers';
+import type { 
+  CrossGazetteerSearch, 
+  DataSource, 
+  Gazetteer, 
+  GeoTaggerInstanceSettings 
+} from '../Types';
 
-export const useGazetteer = (plugin: Plugin, settings: any): Gazetteer | undefined => {
+export const useGazetteers = (
+  plugin: Plugin, 
+  settings?: GeoTaggerInstanceSettings
+): CrossGazetteerSearch | undefined => {
 
-  const { state, setState } = useSharedPluginState<{ gazetteer?: Gazetteer }>(plugin.name);
+  const { state, setState } = useSharedPluginState<CrossGazetteerSearch | undefined>(plugin.name);
 
-  const datasource = settings.plugin_settings?.datasource?.type || 'wikidata';
+  const datasources = settings?.gazetteers || [{ type: 'wikidata' }];
 
   useEffect(() => {
-    const gazetteer = state?.gazetteer;
+    const search = state?.search;
 
-    // Gazetteer already cached
-    if (gazetteer) return;
+    // Gazetteer search already cached
+    if (search) return;
 
-    // No cached gazetteer - create new instance
-    if (datasource === 'geojson') {
-      createGeoJSONGazetteer(settings).then(gazetteer => setState({ gazetteer }));
-    } else if (datasource === 'whg') {
-      setState({ gazetteer: createWHGazetteer() });
-    } else if (datasource === 'coredata') {
-      setState({ gazetteer: createCoreDataGazetteer(plugin) });
-    } else /* Wikidata default */ {
-      setState({ gazetteer: createWikidataGazetteer() });
-    }
+    // No cached gazetteer search - create new instance
+    const gazetteers = Promise.all(datasources.map(source => {
+      if (source.type === 'geojson')
+        // Must download GeoJSON file first
+        return createGeoJSONGazetteer(source).then(gazetteer => ({ source, gazetteer }));
+      else if (source.type === 'whg')
+        // No need to download - resolve instantly
+        return Promise.resolve({ source, gazetteer: createWHGazetteer() });
+      else if (source.type === 'coredata')
+        return Promise.resolve({ source, gazetteer: createCoreDataGazetteer(plugin) });
+      else if (source.type === 'wikidata')
+        return Promise.resolve({ source, gazetteer: createWikidataGazetteer() });
+    })).then(g => g.filter(Boolean)) as Promise<{ source: DataSource, gazetteer: Gazetteer }[]>;
+
+    gazetteers.then(gazetteers => {
+      // Cross-gazetteer search
+      const crossSearch = (query: string, limitPerSource?: number, searchIn?: string[]) => {
+        const toSearch = searchIn ? gazetteers.filter(({ source, gazetteer }) => {
+          const key = source.name || source.url;
+          return key ? searchIn.includes(key) : false;
+        }) : gazetteers;
+
+        return Promise.all(
+          toSearch.map(({ gazetteer }) => gazetteer.search(query, limitPerSource))
+        ).then(responses => responses.flat());
+      }
+
+      setState({ search: crossSearch });
+    });
   }, []);
 
-  return state?.gazetteer;
+  return state;
 
 }
