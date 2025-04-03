@@ -22,7 +22,7 @@ import react from '@astrojs/react';
 import netlify from '@astrojs/netlify';
 
 // Import the plugin
-import GeoTaggingPlugin from '@recogito/geotagging';
+import GeoTaggingPlugin from '@recogito/plugin-geotagging';
 
 export default defineConfig({
   integrations: [
