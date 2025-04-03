@@ -68,7 +68,7 @@ export const QuickSearch = (props: QuickSearchProps) => {
             setSearching(false);
 
             const first = results.length > 0 ? results[0] : undefined;
-            props.onSearchResponse(first);
+            props.onSearchResponse(first?.feature);
           })
           .catch(error => {
             console.error(error);
