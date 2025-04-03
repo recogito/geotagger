@@ -1,6 +1,9 @@
 import { WBK } from 'wikibase-sdk';
 import type { GazetteerSearchable, GeoJSONFeature } from 'src/Types';
 
+// Simple LRU cache for memo-izing search results
+const cache = new Map();
+
 const parseWKTPoint = (wkt?: string) => {
   if (!wkt) return;
 
@@ -23,6 +26,11 @@ export const createWikidataGazetteer = (): GazetteerSearchable => {
   });
 
   const search = (query: string, limit: number = 10): Promise<GeoJSONFeature[]> => {
+    const cacheKey = `${query}:${limit}`;
+
+    if (cache.has(cacheKey))
+      return Promise.resolve(cache.get(cacheKey));
+
     const lang = 'en'; // Could make this configurable in the future
     
     /**
@@ -88,29 +96,38 @@ export const createWikidataGazetteer = (): GazetteerSearchable => {
 
     return fetch(url)
       .then(response => response.json())
-      .then(data => (data.results.bindings as any[])
-        .reduce<any[]>((distinct, result) => {
-          // For reasons beyond comprehension, Wikidata results can include
-          // duplicates. (Despite the DISTINCT clause.) This filters them out.
-          const exists = distinct.some(a => a.item.value === result.item.value);
-          return exists ? distinct : [...distinct, result];
-        }, []).map(result => {
-          const { item, itemLabel, description } = result;
-          
-          const coordinates = parseWKTPoint(result.coordinates?.value);
+      .then(data => { 
+        const results = (data.results.bindings as any[])
+          .reduce<any[]>((distinct, result) => {
+            // For reasons beyond comprehension, Wikidata results can include
+            // duplicates. (Despite the DISTINCT clause.) This filters them out.
+            const exists = distinct.some(a => a.item.value === result.item.value);
+            return exists ? distinct : [...distinct, result];
+          }, []).map(result => {
+            const { item, itemLabel, description } = result;
+            
+            const coordinates = parseWKTPoint(result.coordinates?.value);
 
-          return {
-            id: item.value,
-            properties: {
-              title: itemLabel.value,
-              description: description.value
-            },
-            geometry: coordinates ? {
-              type: 'Point',
-              coordinates
-            } : undefined
-          } as GeoJSONFeature;
-        }));
+            return {
+              id: item.value,
+              properties: {
+                title: itemLabel.value,
+                description: description.value
+              },
+              geometry: coordinates ? {
+                type: 'Point',
+                coordinates
+              } : undefined
+            } as GeoJSONFeature;
+          });
+
+        // Just clear the cache if it's larger than 10
+        if (cache.size > 10) cache.clear();
+
+        cache.set(cacheKey, results);
+
+        return results;
+      });
   }
 
   return { search };
