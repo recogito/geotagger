@@ -24,6 +24,10 @@ export const Minimap = (props: MinimapProps) => {
   useEffect(() => {
     if (!el.current) return;
 
+    // Shift map center to align with visible area
+    const containerWidth = el.current.clientWidth;
+    const offsetX = containerWidth * 0.33;
+    
     const hasLocation = Boolean(feature?.geometry?.coordinates);
 
     const [lon, lat] = hasLocation ? 
@@ -35,6 +39,8 @@ export const Minimap = (props: MinimapProps) => {
       attributionControl: false,
       zoomControl: false 
     }).setView([lat, lon], zoom);
+
+    map.panBy([-offsetX, 0], { animate: false });
 
     const basemap = props.settings.plugin_settings?.basemap?.url 
       || props.plugin.options.basemap_presets[0].url;
