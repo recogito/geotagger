@@ -11,7 +11,6 @@ import { ResultListFilter } from './components/ResultListFilter';
 import type { CrossGazetteerSearchable, GeoJSONFeature, GeoTaggerInstanceSettings } from 'src/Types';
 
 import './GazetteerSearch.css';
-import { toEditorSettings } from 'typescript';
 
 interface GazetteerSearchProps {
 
@@ -31,13 +30,11 @@ interface GazetteerSearchProps {
 
 export const GazetteerSearch = (props: GazetteerSearchProps) => {
 
-  console.log('props', props);
-
-  const foo = props.settings;
-
   const { search } = props.gazetteers;
 
   const [query, setQuery] = useState(props.initialQuery || '');
+
+  const [activeGazetteers, setActiveGazetteers] = useState(props.settings.gazetteers);
 
   const [searching, setSearching] = useState(false);
 
@@ -54,7 +51,11 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
     setSearching(true);
     setResults(undefined);
 
-    search(query, 100)
+    const searchIn = activeGazetteers.length === props.settings.gazetteers.length
+      ? undefined
+      : activeGazetteers.map(g => g.id);
+
+    search(query, 100, searchIn)
       .then(results => {
         const pointFeatures = results.map(f => {
           if (!f.geometry || f.geometry.type === 'Point') {
@@ -122,7 +123,9 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
                 </div>
 
                 <ResultListFilter 
-                  gazetteers={props.settings.gazetteers} />
+                  gazetteers={props.settings.gazetteers} 
+                  filter={activeGazetteers} 
+                  onSetFilter={setActiveGazetteers} />
               </header>
 
               <ul>

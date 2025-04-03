@@ -59,10 +59,9 @@ export const useGazetteerSearch = (
     gazetteers.then(gazetteers => {
       // Cross-gazetteer search
       const crossSearch = (query: string, limitPerSource?: number, searchIn?: string[]) => {
-        const toSearch = searchIn ? gazetteers.filter(({ source, gazetteer }) => {
-          const key = source.name || source.url;
-          return key ? searchIn.includes(key) : false;
-        }) : gazetteers;
+        const toSearch = searchIn ? gazetteers.filter(({ source, gazetteer }) =>
+          searchIn.includes(source.id)
+        ) : gazetteers;
 
         return Promise.all(toSearch.map(({ gazetteer }) => gazetteer.search(query, limitPerSource)))
           // Flatten and re-rank search results into a more sensible order
