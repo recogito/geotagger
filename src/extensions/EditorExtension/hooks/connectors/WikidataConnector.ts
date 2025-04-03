@@ -2,7 +2,7 @@ import { WBK } from 'wikibase-sdk';
 import type { GazetteerSearchable, GeoJSONFeature } from 'src/Types';
 
 // Simple LRU cache for memo-izing search results
-const cache = new Map();
+const cache = new Map<string, GeoJSONFeature[]>();
 
 const parseWKTPoint = (wkt?: string) => {
   if (!wkt) return;
@@ -25,11 +25,15 @@ export const createWikidataGazetteer = (): GazetteerSearchable => {
     sparqlEndpoint: 'https://query.wikidata.org/sparql'
   });
 
-  const search = (query: string, limit: number = 10): Promise<GeoJSONFeature[]> => {
-    const cacheKey = `${query}:${limit}`;
+  const search = (query: string, _?: number): Promise<GeoJSONFeature[]> => {
+    // Bit of a hack, for UX purposes. Wikidata is slow, and limit doesn't really matter,
+    // so we always fetch 100. This way, the "Quicksearch" query will alread popuplate
+    // the cache for the actual search.
+    const limit = 100;
 
-    if (cache.has(cacheKey))
-      return Promise.resolve(cache.get(cacheKey));
+    const cached = cache.get(query);
+    if (cached && cached.length >= limit)
+      return Promise.resolve(cached);
 
     const lang = 'en'; // Could make this configurable in the future
     
@@ -124,7 +128,7 @@ export const createWikidataGazetteer = (): GazetteerSearchable => {
         // Just clear the cache if it's larger than 10
         if (cache.size > 10) cache.clear();
 
-        cache.set(cacheKey, results);
+        cache.set(query, results);
 
         return results;
       });
