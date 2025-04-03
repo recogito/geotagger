@@ -6,6 +6,28 @@
   width: 100%;
 }
 
+.ou-gtp-result-card .title {
+  font-weight: 500;
+}
+
+.ou-gtp-result-card .identifier {
+  align-items: center;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.ou-gtp-result-card .identifier .pip {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  height: 7px;
+  width: 7px;
+}
+
+.ou-gtp-result-card .identifier .source-link {
+  color: var(--font-dark);
+}
+
 .ou-gtp-result-card button {
   align-items: flex-start;
   all: unset;

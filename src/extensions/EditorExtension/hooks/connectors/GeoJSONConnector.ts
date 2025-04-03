@@ -17,9 +17,10 @@ export const createGeoJSONGazetteer = (source: GazetteerDefinition): Promise<Gaz
       }) as GeoJSONFeature[];
 
       const fuse = new Fuse<GeoJSONFeature>(features, { 
-        keys: [ '@id', 'properties.title', 'properties.description' ],
+        keys: [ 'id', 'properties.title', 'properties.description' ],
         shouldSort: true,
         includeScore: true,
+        threshold: 0.2,
         useExtendedSearch: true
       });
 

@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import centroid from '@turf/centroid';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Plugin } from '@recogito/studio-sdk';
@@ -8,7 +8,13 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { ResultCard } from './components/ResultCard';
 import { ResultMap } from './components/ResultMap';
 import { ResultListFilter } from './components/ResultListFilter';
-import type { CrossGazetteerSearchable, GeoJSONFeature, GeoTaggerInstanceSettings } from 'src/Types';
+import { COLORS } from './Colors';
+import type { 
+  CrossGazetteerSearchable, 
+  CrossGazetteerSearchResult, 
+  GeoJSONFeature, 
+  GeoTaggerInstanceSettings 
+} from 'src/Types';
 
 import './GazetteerSearch.css';
 
@@ -38,15 +44,22 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
 
   const [searching, setSearching] = useState(false);
 
-  const [results, setResults] = useState<GeoJSONFeature[] | undefined>();
+  const [results, setResults] = useState<CrossGazetteerSearchResult[] | undefined>();
 
-  const onSelect = (result: GeoJSONFeature) => {
-    props.onSelect(result);
+  const onSelect = (result: CrossGazetteerSearchResult) => {
+    props.onSelect(result.feature);
     props.onClose();
   }
 
-  const onSearch = (evt: FormEvent) => {
-    evt.preventDefault();
+  const getGazetteerColor = (result: CrossGazetteerSearchResult) => {
+    // Don't color-code if there's only one gazetteer
+    if (props.settings.gazetteers.length === 1) return;
+    const idx = props.settings.gazetteers.findIndex(g => g.id === result.gazetteer);
+    return COLORS[idx % COLORS.length];
+  }
+
+  const onSearch = (evt?: FormEvent) => {
+    evt?.preventDefault();
 
     setSearching(true);
     setResults(undefined);
@@ -57,14 +70,19 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
 
     search(query, 100, searchIn)
       .then(results => {
-        const pointFeatures = results.map(f => {
-          if (!f.geometry || f.geometry.type === 'Point') {
+        const pointFeatures = results.map(result => {
+          if (!result.feature.geometry || result.feature.geometry.type === 'Point') {
             // Pass through point & unlocated features
-            return f;
+            return result;
           } else {
             // Anything else: reduce to centroid
-            const { geometry } = centroid(f);
-            return { ...f, geometry };
+            return { 
+              ...result,
+              feature: {
+                ...result.feature, 
+                geometry: centroid(result.feature)
+              } as unknown as GeoJSONFeature
+            };
           }
         });
 
@@ -76,6 +94,8 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
         setSearching(false);
       })
   }
+
+  useEffect(() => onSearch(), [activeGazetteers]);
 
   return (
     <Dialog.Root open={true} onOpenChange={props.onClose}>
@@ -121,19 +141,22 @@ export const GazetteerSearch = (props: GazetteerSearchProps) => {
                     <>{results.length} Results</>
                   )}
                 </div>
-
-                <ResultListFilter 
-                  gazetteers={props.settings.gazetteers} 
-                  filter={activeGazetteers} 
-                  onSetFilter={setActiveGazetteers} />
+                
+                {props.settings.gazetteers.length > 1 && (
+                  <ResultListFilter 
+                    gazetteers={props.settings.gazetteers} 
+                    filter={activeGazetteers} 
+                    onSetFilter={setActiveGazetteers} />
+                )}
               </header>
 
               <ul>
                 {(!searching && results) && results.map(result => (
-                  <li key={result.id}>
+                  <li key={result.feature.id}>
                     <ResultCard
                       plugin={props.plugin}
                       result={result}
+                      color={getGazetteerColor(result)}
                       onClick={() => onSelect(result)} />
                   </li>
                 ))}

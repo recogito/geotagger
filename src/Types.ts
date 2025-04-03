@@ -48,7 +48,15 @@ export interface GazetteerSearchable {
 
 export interface CrossGazetteerSearchable {
 
-  search(query: string, limitPerSource?: number, searchIn?: string[]): Promise<GeoJSONFeature[]>;
+  search(query: string, limitPerSource?: number, searchIn?: string[]): Promise<CrossGazetteerSearchResult[]>;
+
+}
+
+export interface CrossGazetteerSearchResult {
+
+  feature: GeoJSONFeature;
+
+  gazetteer: string;
 
 }
 

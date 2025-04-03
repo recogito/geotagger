@@ -5,7 +5,7 @@ import { Plugin } from '@recogito/studio-sdk';
 import { ResultMapPopup } from './ResultMapPopup';
 import { useLeaflet } from '../../../../../shared/useLeaflet';
 import { createPopup } from '../../../../../shared/utils';
-import type { GeoJSONFeature } from 'src/Types';
+import type { CrossGazetteerSearchResult } from 'src/Types';
 
 import './ResultMap.css';
 
@@ -15,9 +15,9 @@ interface ResultMapProps {
 
   settings: any;
 
-  results: GeoJSONFeature[];
+  results: CrossGazetteerSearchResult[];
 
-  onConfirm(result: GeoJSONFeature): void;
+  onConfirm(result: CrossGazetteerSearchResult): void;
 
 }
 
@@ -26,7 +26,7 @@ export const ResultMap = (props: ResultMapProps) => {
   // located results. Otherwise, the [props.result, map] effect
   // will handle map location.
   const [ initialCenter, initialZoom ] = useMemo(() => {
-    const locatedResults = props.results.filter(f => f.geometry?.coordinates);
+    const locatedResults = props.results.filter(f => f.feature.geometry?.coordinates);
     return (locatedResults.length === 0) ? [ [0, 0], 2 ] : [ undefined, undefined ];
   }, []);
 
@@ -40,11 +40,11 @@ export const ResultMap = (props: ResultMapProps) => {
   useEffect(() => {
     if (!map) return;
 
-    const located = props.results.filter(f => f.geometry?.coordinates);
+    const located = props.results.filter(f => f.feature.geometry?.coordinates);
 
     const [minLon, minLat, maxLon, maxLat] = bbox({ 
       type: 'FeatureCollection',
-      features: located
+      features: located.map(r => r.feature)
     });
 
     if ([minLon, minLat, maxLon, maxLat].every(n => !isNaN(n) && isFinite(n))) {
@@ -54,15 +54,15 @@ export const ResultMap = (props: ResultMapProps) => {
       ], { maxZoom: 12 });
     }
 
-    const markers = located.map(feature => {
-      const [lon, lat] = feature.geometry.coordinates; 
+    const markers = located.map(r => {
+      const [lon, lat] = r.feature.geometry.coordinates; 
 
       const popup = createPopup(
         <ResultMapPopup 
           plugin={props.plugin} 
-          result={feature} 
+          result={r.feature} 
           onClose={() => popup.close()}
-          onConfirm={() => props.onConfirm(feature)} />
+          onConfirm={() => props.onConfirm(r)} />
       );
 
       return L.marker([lat, lon]).bindPopup(popup);

@@ -40,13 +40,16 @@
   margin-top: 2px;
 } 
 
-.ou-gtp-result-list-filter-popover button.checkbox-root {
-  background-color: var(--color);
+.ou-gtp-result-list-filter-popover button.checkbox-root{  
   border-color: var(--color);
+}
+
+.ou-gtp-result-list-filter-popover button.checkbox-root[data-state='checked'] {
+  background-color: var(--color);
   color: #fff;
 }
 
-.ou-gtp-result-list-filter-popover button.checkbox-root:hover {
+.ou-gtp-result-list-filter-popover button.checkbox-root[data-state='checked']:hover {
   background-color: var(--color);
 }
 

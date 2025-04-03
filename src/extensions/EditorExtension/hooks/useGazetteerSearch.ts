@@ -8,16 +8,16 @@ import {
   createWikidataGazetteer 
 } from './connectors';
 import type { 
+  CrossGazetteerSearchResult,
   CrossGazetteerSearchable, 
   GazetteerDefinition, 
   GazetteerSearchable, 
-  GeoJSONFeature, 
   GeoTaggerInstanceSettings 
 } from 'src/Types';
 
-const rerankResults = (features: GeoJSONFeature[], query: string) => {
-  const fuse = new Fuse<GeoJSONFeature>(features, { 
-    keys: [ '@id', 'properties.title', 'properties.description' ],
+const rerankResults = (results: CrossGazetteerSearchResult[], query: string) => {
+  const fuse = new Fuse<CrossGazetteerSearchResult>(results, { 
+    keys: [ 'feature.id', 'feature.properties.title', 'feature.properties.description' ],
     shouldSort: true,
     includeScore: true,
     threshold: 0.9,
@@ -59,13 +59,21 @@ export const useGazetteerSearch = (
     gazetteers.then(gazetteers => {
       // Cross-gazetteer search
       const crossSearch = (query: string, limitPerSource?: number, searchIn?: string[]) => {
-        const toSearch = searchIn ? gazetteers.filter(({ source, gazetteer }) =>
-          searchIn.includes(source.id)
-        ) : gazetteers;
+        const toSearch = searchIn 
+          ? gazetteers.filter(({ source }) => searchIn.includes(source.id)) 
+          : gazetteers;
 
         return Promise.all(toSearch.map(({ gazetteer }) => gazetteer.search(query, limitPerSource)))
           // Flatten and re-rank search results into a more sensible order
-          .then(responses => rerankResults(responses.flat(), query))
+          .then(responses => { 
+            // Retain relation result -> source gazetteer
+            const flattened = responses.reduce<CrossGazetteerSearchResult[]>((results, batch, idx) => {
+              const gazetteer = toSearch[idx]!.source.id;
+              return [...results, ...batch.map(feature => ({ gazetteer, feature }))];
+            }, []);
+
+            return rerankResults(flattened, query)
+          })
       }
 
       setState({ search: crossSearch });

@@ -1,15 +1,18 @@
 import { Warning } from '@phosphor-icons/react';
+import chroma from 'chroma-js';
 import { Plugin } from '@recogito/studio-sdk';
 import { formatId } from '../../../../../shared/utils';
-import type { GeoJSONFeature } from 'src/Types';
+import type { CrossGazetteerSearchResult, GeoJSONFeature } from 'src/Types';
 
 import './ResultCard.css';
 
 interface ResultCardProps {
 
+  color?: string;
+
   plugin: Plugin;
 
-  result: GeoJSONFeature;
+  result: CrossGazetteerSearchResult;
 
   onClick(): void;
 
@@ -17,9 +20,11 @@ interface ResultCardProps {
 
 export const ResultCard = (props: ResultCardProps) => {
 
-  const { properties } = props.result;
+  const { properties } = props.result.feature;
 
-  const isUnlocated = !props.result.geometry?.coordinates;
+  const id = props.result.feature.id;
+
+  const isUnlocated = !props.result.feature.geometry?.coordinates;
 
   return (
     <div className="ou-gtp-result-card">
@@ -30,8 +35,17 @@ export const ResultCard = (props: ResultCardProps) => {
       </button>
 
       <span className="identifier">
-        <a className="source-link" href={props.result.id} target="_blank">
-          {formatId(props.result.id, props.plugin)}
+        {props.color && (
+          <span 
+            className="pip" 
+            style={{ 
+              backgroundColor: props.color,
+              borderColor: chroma(props.color).darken().hex()
+            }} />
+          )}
+
+        <a className="source-link" href={id} target="_blank">
+          {formatId(id, props.plugin)}
         </a>
       </span>
       
