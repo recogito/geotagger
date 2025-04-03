@@ -11,9 +11,22 @@
   margin-bottom: 1rem;
 }
 
+.ou-gtp-admin .accordion-item {
+  background-color: #fff;
+  border: 1px solid var(--gray-200);
+}
+
+.ou-gtp-admin .accordion-item + .accordion-item {
+  border-top: none;
+}
+
 .ou-gtp-admin h3.accordion-header {
   background-color: var(--gray-50);
   margin: 0;
+}
+
+.ou-gtp-admin .accordion-content {
+  border-top: none;
 }
 
 .ou-gtp-admin h3.accordion-header button {
@@ -40,11 +53,6 @@
 
 .ou-gtp-admin .accordion-root {
   margin-top: 1rem;
-  width: 100%;
-}
-
-.ou-gtp-admin .accordion-item {
-  background-color: #fff;
   width: 100%;
 }
 
