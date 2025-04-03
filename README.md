@@ -1,3 +1,5 @@
+![A screenshot of the Recogito Geo-Tagging plugin](/screenshot.jpg "A screenshot of the Recogito Geo-Tagging plugin")
+
 # Recogito GeoTagger Plugin
 
 A geo-tagging plugin for Recogito.
