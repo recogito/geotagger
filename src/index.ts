@@ -5,25 +5,27 @@ const GeoTaggerPlugin: Plugin = {
 
   name: 'GeoTagger',
 
+  module_name: '@recogito/plugin-geotagging',
+
   description: 'Tag annotations with geographical references from a gazetteer.',
 
   author: 'Pelagios Network',
 
   homepage: 'https://pelagios.org',
 
+  thumbnail: 'thumbnail.jpg',
+
   extensions: [{
     name: 'geotagger-admin',
-    module_name: '@recogito/plugin-geotagging',
+
     component_name: 'AdminExtension',
     extension_point: 'admin'
   },{
     name: 'geotagger-editor',
-    module_name: '@recogito/plugin-geotagging',
     component_name: 'EditorExtension',
     extension_point: 'annotation:*:annotation-editor'
   },{
     name: 'geotagger-editor',
-    module_name: '@recogito/plugin-geotagging',
     component_name: 'DocumentMapExtension',
     extension_point: 'annotation:*:toolbar'
   }],
