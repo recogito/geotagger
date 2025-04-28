@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnnotationEditorExtensionProps, SupabaseAnnotation } from '@recogito/studio-sdk';
 import { createBody } from '@annotorious/react';
 import L from 'leaflet';
@@ -40,7 +40,7 @@ const getQuote = (a: SupabaseAnnotation): string | undefined => {
 
 export const EditorExtension = (props: AnnotationEditorExtensionProps<GeoTaggerInstanceSettings>) => {
 
-  const { annotation, plugin, settings } = props;
+  const { annotation, me, plugin, settings, isSelected } = props;
 
   const quote = getQuote(annotation);
 
@@ -54,7 +54,7 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps<GeoTaggerI
 
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
 
-  const isNewAnnotation = useMemo(() => annotation.bodies.length === 0, [annotation.id]);
+  const isMine = me.id === annotation.target.creator?.id;
 
   const saveGeoTag = (feature: GeoJSONFeature) => {
     const next = {
@@ -170,7 +170,7 @@ export const EditorExtension = (props: AnnotationEditorExtensionProps<GeoTaggerI
           onSelect={onChange}/>
       )}
     </div>
-  ) : (isNewAnnotation || props.isEditable) ? (
+  ) : (isMine && isSelected) ? (
     <AddGeoTag 
       initializing={!search}
       onClick={() => setShowQuickSearch(true)} />
